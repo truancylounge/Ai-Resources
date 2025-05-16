@@ -29,3 +29,11 @@ Decoding Ai Agents and their capabilities.
     ![Ai Agent Arch Patterns](../docs/content/imgs/architecture/ai-agent-arch-patterns.png)
 
 
+### References
+- [AICamp](https://www.youtube.com/@AICamp)
+- [NirDiamant Github: GenAi_Agents](https://github.com/NirDiamant/GenAI_Agents)
+  - [AI News Agent v1](https://medium.com/@nirdiamant21/stop-reading-start-understanding-your-ai-news-agent-simplified-9845e69a86c6)
+  - [News TL;DR](https://github.com/NirDiamant/GenAI_Agents/blob/main/all_agents_tutorials/news_tldr_langgraph.ipynb)
+  - [Building First AI Agent] (https://diamantai.substack.com/p/your-first-ai-agent-simpler-than)
+- [AI News Agent v2](https://github.com/vatsalsaglani/GenAINewsAgent)
+- 
