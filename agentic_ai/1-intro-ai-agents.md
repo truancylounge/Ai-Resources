@@ -28,12 +28,30 @@ Decoding Ai Agents and their capabilities.
 - **MultiAgent Pattern**, running multiple agents to complete the task
     ![Ai Agent Arch Patterns](../docs/content/imgs/architecture/ai-agent-arch-patterns.png)
 
+### News Search & Summarizer Workflow 
+- News Search Agent & News Summarizer Agent
+- **SerpAPI** Scrape Google and other search engines from our fast, easy, and complete API.
+- **CrewAi** Streamlines workflows across industries with powerful AI agents
+    ![LowCode Agent workflow](../docs/content/imgs/workflow/news-summarizer-low-code-workflow.png)
+    ![ProCode Agent workflow](../docs/content/imgs/workflow/news-summarizer-pro-code-workflow.png)
 
+### AI Meal Planner Workflow
+- Creates healthy meal plan that matches your medical needs and food preferences
+- Frameworks used
+  - **StreamLit**: UI Framework
+  - **CrewAI**: Multi-agent Orchestration (Can be **LangChain** or **LangGraph**)
+  - **Ollama**: Local LLM running Mistral
+- Agents:
+  - **Dietitian** which processes medical conditions/allergies
+  - **Chef** which creates cuisine-specific meal plans
+  - **GuardRail** which tests the finals results before being published to end user
+    ![AI Meal Planner Workflow](../docs/content/imgs/workflow/meal-planner-workflow.png)
+    ![AI Meal Planner UI](../docs/content/imgs/journey/meal-planner-ui.png)
 ### References
 - [AICamp](https://www.youtube.com/@AICamp)
 - [NirDiamant Github: GenAi_Agents](https://github.com/NirDiamant/GenAI_Agents)
   - [AI News Agent v1](https://medium.com/@nirdiamant21/stop-reading-start-understanding-your-ai-news-agent-simplified-9845e69a86c6)
   - [News TL;DR](https://github.com/NirDiamant/GenAI_Agents/blob/main/all_agents_tutorials/news_tldr_langgraph.ipynb)
-  - [Building First AI Agent] (https://diamantai.substack.com/p/your-first-ai-agent-simpler-than)
+  - [Building First AI Agent](https://diamantai.substack.com/p/your-first-ai-agent-simpler-than)
 - [AI News Agent v2](https://github.com/vatsalsaglani/GenAINewsAgent)
 - 
