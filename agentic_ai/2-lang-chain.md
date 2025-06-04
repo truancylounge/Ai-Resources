@@ -15,4 +15,12 @@
 4. What is RAG?
    - https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/
      ![RAG Workflow](../docs/content/imgs/workflow/rag-basic-workflow.png)
+   - **Embedding model** converts our content (pdf, csv etc) into tokens. These tokens will be stored as vector embeddings in our vector database. 
+     - A vector database is 3d and has lot of space.
+     - Vector databases use mathematical metrics (like Euclidean distance, cosine similarity, etc.) to determine the similarity between vectors
+     - Based on the similarity metrics, vectors are grouped together, forming clusters of similar data points.
+     - Benefits of Clustering
+       - **Efficient Search**,  Instead of searching through the entire dataset, queries can be focused on the most relevant clusters, significantly speeding up the search process.
+       - **AI Applications**, Vector databases are well-suited for applications like semantic search, recommendation systems, and large language model (LLM) retrieval-augmented generation (RAG).
+       - **Understanding Data Context**, Data can be identified based on similarity metrics, allowing AI models to understand data contextually.
    - 
