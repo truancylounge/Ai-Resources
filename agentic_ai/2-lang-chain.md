@@ -23,4 +23,30 @@
        - **Efficient Search**,  Instead of searching through the entire dataset, queries can be focused on the most relevant clusters, significantly speeding up the search process.
        - **AI Applications**, Vector databases are well-suited for applications like semantic search, recommendation systems, and large language model (LLM) retrieval-augmented generation (RAG).
        - **Understanding Data Context**, Data can be identified based on similarity metrics, allowing AI models to understand data contextually.
-   - 
+
+### FlowiseAi setup (https://github.com/FlowiseAI/Flowise)
+```javascript
+npm install -g flowise or npm update -g flowise
+npx flowise start
+http://localhost:3000
+```
+1. Actions in Flowise
+   - **Agents**: Supervisor and multiple workers
+   - **Marketplace**: **Prompt Engineering Team** is a handy project to clone and use to create prompts for multiple agents. 
+   - **Tools**: Serper, Write File, Calculator, Python Interpretor
+   - Signup at https://serper.dev/login and get access to serper apis, very handy tool to crawl public websites
+
+### RAG tools
+1. **Text splitter** + **Document Loader** (pdf) + **Embeddings model** (text-embedding-ada-002) + In memory vector store or **vector DB** + **Retrieval Tool** + **LLM Worker**
+2. **Firecrawl** (https://github.com/mendableai/firecrawl) is an api service that takes a URL, craws it and converts it into clean markdown or structured data.
+    It also craws all accessible subpages and gives us clean data without a sitemap. 
+    In short it features advanced scraping, crawling, and data extraction capabilities.
+3. For text splitters we need to custom select following properties, **chunkSize** and **chunkOverlap**
+4. **llamaParse**, Used to convert a PDF to Markdown is better for LLM to read. Also create a summary of markdown if pdf is >100 pages. 
+   https://docs.llamaindex.ai/en/v0.10.34/module_guides/loading/connector/llama_parse/  
+   An Api Key is also needed from, https://cloud.llamaindex.ai/login
+5. **Rapid Apis**, free opensource apis one can use. https://rapidapi.com/
+6. **Custom Tool**, Add js function to retrieve data for the worker and connect it as tool to the worker
+    Example tools are in marketplace, you can clone Add Hubspot Contact as example
+    In js code we can add **Rapid Apis** listed above
+7. 
