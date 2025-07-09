@@ -11,6 +11,16 @@ However, the versatility of vector databases extends beyond RAG and makes it pos
 4. **Facial Similarity**
 5. **Anomaly Detection**: e.g identify unusual patterns in logs
 
+### What are Embeddings?
+- A type of data compression which transforms messy data (text, images, audio video etc) into compact format for ML algorithms
+- Most often numeric vectors(aka arrays) with 100s or 1000s of elements
+- Preserve information such that "similar" items have proportionally "similar" embedding vectors
+- Similarity is measured with vector algorithms (cosine, euclidean, etc)
+- What does similarity mean?
+  - If it's a **Text Embedding**, Semantic similarity i.e meaning behind sequence of texts
+  - If it`s a **Graph Embeddings**, similarity in position or structure in a graph - can have semantic meaning too
+
+
 ### Embedding Models
 - Embedding models have evolved from word to sentence embeddings to now cross encoder embedding models.
 - Embedding models create embedding vectors that make it possible to build semantic or meaning based retrieval systems.
