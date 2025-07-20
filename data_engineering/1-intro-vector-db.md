@@ -39,5 +39,12 @@ However, the versatility of vector databases extends beyond RAG and makes it pos
   - Its mostly used to train on Q&A pairs
 - RAG: Workflow
   ![RAG Workflow](../docs/content/imgs/workflow/rag-query-workflow.png)
+- Why not add everything in context window to RAG?
+  - Higher computational cost
+    - Longer prompts take more computation to run
+    - Model now has to scan every token and perform complex scans
+  - Context window limit
+    - Eventually you will hit hte limit of LLM's context window
+    - Small models have only thousand token while larger models have millions of tokens as context window
 - 
 

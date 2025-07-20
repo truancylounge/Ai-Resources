@@ -5,7 +5,6 @@
 - ArangoDB
 - Amazon Neptune
 
-
 ### Common Graph Query Languages
 - Cypher
 - Gremlin
