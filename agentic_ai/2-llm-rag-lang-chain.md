@@ -76,4 +76,5 @@ http://localhost:3000
     Example tools are in marketplace, you can clone Add Hubspot Contact as example
     In js code we can add **Rapid Apis** listed above
 
-
+### Resources
+1. [DeepLearning.ai LLM RAG pdf's](https://community.deeplearning.ai/t/rag-lecture-notes/852809)
