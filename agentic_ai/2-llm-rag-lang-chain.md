@@ -76,5 +76,20 @@ http://localhost:3000
     Example tools are in marketplace, you can clone Add Hubspot Contact as example
     In js code we can add **Rapid Apis** listed above
 
+### Evaluate LLM's performane in RAG
+1. Use of RAGAS library, https://docs.ragas.io/en/stable/
+2. Metrics provided by RAGAS library
+   - **Response Relevancy**, measures if response is relevant to user prompt, regardless of accuracy
+     - Evaluator LLM takes in response to user prompt and generates several sample prompts (Working backwards)
+     - Embed original user prompt and sample prompts to vectors and calculate cosine similarity
+     - Average similarity scores for final relevancy measure
+     - This approach doesn't check accuracy or if response is factual. It checks to see if you can reasonably work backwards from generated response to original user prompt
+   - **Faithfulness**, measures if response is accurate 
+     - LLM identifies all factual claims in response
+     - More LLM calls to determine if claims are factually supported by retrieved information
+     - Percentage of supported claims is the faithfulness
+3. Other RAGAS metrics capture noise sensitivity, citations etc
+4. Other approaches like **Human as Judge**, collect system-wide feedback (thumbds-up/down) and A/B tests to judge LLM performance
+
 ### Resources
 1. [DeepLearning.ai LLM RAG pdf's](https://community.deeplearning.ai/t/rag-lecture-notes/852809)
