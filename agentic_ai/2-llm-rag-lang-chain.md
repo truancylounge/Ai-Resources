@@ -91,5 +91,57 @@ http://localhost:3000
 3. Other RAGAS metrics capture noise sensitivity, citations etc
 4. Other approaches like **Human as Judge**, collect system-wide feedback (thumbds-up/down) and A/B tests to judge LLM performance
 
+### Productionalizing a RAG application
+1. Evaluation and Logging - Measure and monitor RAG system performance
+2. System Optimization - Balance cost, speed and quality tradeoffs
+3. Production challenges
+   - Scaling performance
+     - **More traffic** increases latency and load
+     - **More requests** mean higher memory and compute costs
+   - Unpredictability of Prompts, users are creative and unpredictable
+   - Security and Privacy
+   - Reputation risks on launching an LLM based product
+4. How to solve the above challenges -
+   - Building a robust observability system
+     - Metrics to track include Software performance metrics (latency, throughput, memory)
+     - Variety of Quality metrics i.e 
+     - Record detailed logs i.e. trace individual prompts through your pipeline and response sent to them
+   - System level Evals (end-to-end) vs Component level Evals (parts of RAG system)
+     ![RAG Performance Metrics Overview](../docs/content/imgs/overview/rag-perf-metrics-overview.png)
+   - Types of Evals
+     - Code-based, recording prompts/sec, unit tests etc
+     - Human feedback
+     - LLM-as-a-Judge
+   - Phoenix is an open-source AI observability platform designed for experimentation, evaluation, and troubleshooting.
+     - https://github.com/Arize-ai/phoenix?tab=readme-ov-file
+     - Tracing: Trace your LLM application's runtime using OpenTelemetry-based instrumentation.
+     ![Phoenix Trace Metrics](../docs/content/imgs/overview/phoenix-trace-metrics.png)
+     - Evaluations: Leverage LLMs to benchmark your application's performance using response and retrieval evals.
+     ![Phoenix Eval Metrics](../docs/content/imgs/overview/phoenix-eval-metrics.png)
+   - Cost vs Response Quality:
+     - LLM cost (Inference cost)
+       - Use smaller models
+       - Limit input and output tokens i.e. smaller prompts, reduce retriever documents(top_K), Use system prompt to set response token limits
+       - Figure out best pay model in AWS i.e. per-token pricing or per-hour pricing
+     - Vector Database (Storage & query costs)
+       - Indexing cost vs inference retrieval documents cost
+       - Store HNSW index in RAM for fast retrieval
+       - Move rarely accessed vectors to SSD/disk
+   - Latency vs Response Quality
+     - Most latency comes from transformer i.e LLM 
+     - Retriever and vector databases are extremely fast
+     - Caching of frequently submitted prompts and responses, use vector databases to match user query with these prompts
+     - Monitor other RAG components like re-ranker, query-rewriter etc
+     - Search latency can be improved by **Quantized Embeddings**(Use binary/low-bit quantized vectors), **Database Shading**(Split large indexes across instances) etc
+   - Security
+     - Secure your knowledge base
+       - Well worded prompts can cause knowledge base leakage
+     - 
+
+
+
 ### Resources
 1. [DeepLearning.ai LLM RAG pdf's](https://community.deeplearning.ai/t/rag-lecture-notes/852809)
+2. [RAG Evaluation Metrics  Explained](https://medium.com/@med.el.harchaoui/rag-evaluation-metrics-explained-a-complete-guide-dbd7a3b571a8)
+3. Phoenix, opensource AI observability platform, https://github.com/Arize-ai/phoenix?tab=readme-ov-file
+4. 
