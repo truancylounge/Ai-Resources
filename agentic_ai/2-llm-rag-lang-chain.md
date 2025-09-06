@@ -48,10 +48,142 @@
     - Document Loaders, i.e NotionDirectoryLoader, PyPDFLoader or UnstructuredEmailLoader
     - Agent eco-system, i.e AgentExecutor and various lang-graph implementations
     - Output parsers are very imp to format the LLM output in content field, i.e chain = prompt | llm | StrOutputParser()
-    - 
+2. Output Parsers
+    - StructuredOutputParser
+      ```python
+      from langchain.output_parsers import ResponseSchema
+      from langchain.output_parsers import StructuredOutputParser
+      gift_schema = ResponseSchema(
+        name="gift",
+        description="Was the item purchased as a gift for someone else? Answer True if yes, False if not or unknown."
+      ),
+      delivery_days_schema = ResponseSchema(
+        name="delivery_days",
+        description="How many days did it take for the product to arrive? If this information is not found, output -1."
+      ),
+      price_value_schema = ResponseSchema(
+        name="price_value",
+        description="Extract any sentences about the value or price, and output them as a comma separated Python list."
+      )
+      response_schemas = [gift_schema, delivery_days_schema, price_value_schema]
+      output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
+      format_instructions = output_parser.get_format_instructions()
+      print(format_instructions)
+      
+      # Use {format_instructions} in the prompt and once response is returned parse it to get JSON as below, 
+      output_dict = output_parser.parse(response.content)
+      ``` 
+3. Memory - LangChain offers various types of memory to suit different needs and trade-offs between context retention and token usage:
+   - **ConversationBufferMemory**: Stores the entire conversation history in the prompt.
+   - **ConversationBufferWindowMemory**: Stores a fixed number of recent messages, limiting the history passed to the LLM.
+   - **ConversationTokenBufferMemory**: Stores a buffer of recent interactions in memory, and uses token length rather than number of interactions to determine when to flush. 
+   - **ConversationSummaryMemory**: 
+     - Utilizes an LLM to summarize earlier parts of the conversation, adding the summary as a system message.
+     - Creates a summary of conversation over time as token limit increases beyond the specified limit
+   ```python
+   from langchain.chains import ConversationChain
+   from langchain.memory import ConversationBufferMemory
+   memory = ConversationBufferMemory()
+   conversation = ConversationChain(llm=llm, memory = memory, verbose=True)
+   conversation.predict(input="Hi, my name is Lalith")
+   conversation.predict(input="What is 1+1?")
+   conversation.predict(input="What is my name?")
+   print(memory.buffer)
+   # To save context in memory
+   memory.save_context({"input": "Hi"}, {"output": "What's up"})
+   
+   from langchain.memory import ConversationBufferWindowMemory
+   memory = ConversationBufferWindowMemory(k=1)               
+   
+   from langchain.memory import ConversationTokenBufferMemory
+   memory = ConversationTokenBufferMemory(llm=llm, max_token_limit=50)
+   ```
+   - Additional Memory Types
+     - **Vector Data memory**, stores data in Vector DB
+     - **Entities Memories**
+
+4. Chains - (Very complex workflow and use cases can be implemented using Chains)
+    - **Sequential Chains**
+      - SimpleSequentialChain 
+      - SequentialChain
+    - **Router Chains** (We can build multiple types of prompts and have LLM decide on the fly which LLM Chain to use similar to Supervisor/Worker model)
+
+5. Evaluations - 
+   - Hard coded Q&A pairs. Run the question through the LLM and match the actual answer with generated answer to check authenticity of LLM
+     - In most cases an LLM is feed data and asked to generate Q&A rather than create them manually
+     - **QAGenerateChain**
+     ```python
+     from langchain.evaluation.qa.generate_chain import QAGenerateChain
+     from langchain_openai import ChatOpenAI # Or any other LLM
+     llm = ChatOpenAI(temperature=0)
+     qa_chain = QAGenerateChain.from_llm(llm)
+     ```
+     - Only testing the final answer isn't sufficient, multiple steps need to be evaluated i.e. prompt, retriever documents etc
+     - Set langchain debug to True to analyze intermediate steps
+     ```python
+     import langchain
+     langchain.debug = True
+     ```
+     - Use **QAEvalChain** to test the LLM with our Q&A generated pairs. We need another LLM to grade coz output of LLM need to be semantically matched with answers, it can't be a simple string match. 
+     ```python
+     from langchain.evaluation.qa import QAEvalChain
+     llm = ChatOpenAI(temperature=0, model=llm_model)
+     eval_chain = QAEvalChain.from_llm(llm)
+     # predictions are responses of LLM, examples are the Q&A created by QAGenerateChain
+     graded_outputs = eval_chain.evaluate(examples, predictions)
+     ```
+6. Agents -
+   - We can use built in LangChain tools as agents to do work. E.g. llm-math & wikipedia to do complex math problems or run search queries against wikipedia
+   ```python
+   from langchain.agents import load_tools, initialize_agent
+   from langchain.agents import AgentType
+   tools = load_tools(["llm-math","wikipedia"], llm=llm)
+   agent= initialize_agent(
+    tools, 
+    llm, 
+    agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+    handle_parsing_errors=True,
+    verbose = True)
+   agent("What is the 25% of 300?")
+   ```
+   - We can use a python REPL tool to do some coding by an agent
+   ```python
+   from langchain.agents.agent_toolkits import create_python_agent
+   agent = create_python_agent(
+    llm,
+    tool=PythonREPLTool(),
+    verbose=True
+    )
+   customer_list = [["Harrison", "Chase"], ["Lang", "Chain"], ["Dolly", "Too"], ["Elle", "Elem"], ["Geoff","Fusion"], ["Trance","Former"], ["Jen","Ayai"]]
+   langchain.debug=True
+   agent.run(f"""Sort these customers by last name and then first name and print the output: {customer_list}""")
+   langchain.debug=False
+   ```
+   - Custom tool to return today's date in a certain format
+   ```python
+   from langchain.agents import tool
+   from datetime import date
+   @tool
+   def time(text: str) -> str:
+       """Returns todays date, use this for any questions related to knowing todays date. \
+       The input should always be an empty string, and this function will always return todays \ 
+       date - any date mathmatics should occur outside this function."""
+       return str(date.today())
+   agent= initialize_agent(
+    tools + [time], 
+    llm, 
+    agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+    handle_parsing_errors=True,
+    verbose = True)
+   try:
+    result = agent("whats the date today?")
+   except:
+    print("exception on external access")
+   ```
+
 
 ### FlowiseAi setup (https://github.com/FlowiseAI/Flowise)
-```javascript
+```npm
 npm install -g flowise or npm update -g flowise
 npx flowise start
 http://localhost:3000
