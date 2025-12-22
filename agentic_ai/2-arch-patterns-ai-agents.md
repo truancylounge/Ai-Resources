@@ -34,15 +34,46 @@ Each sub-problem is addressed via a specially designed prompt and the output gen
 
 Furthermore, prompt chaining is not just about breaking down problems, it also enables the integration of external knowledge and tools. At each step, the LLM can be instructed
 to interact with external systems, APIs or databases, enriching its knowledge and abilities beyond its internal training data, allowing them to function not just as isolated modles but more intelligent systems.\
-This serves as a foundation technique for building sophisticated AI Agents. These agents can utilize prompt chains to autonomously plan, reason and act in dynamic environments. 
+This serves as a foundation technique for building sophisticated AI Agents. These agents can utilize prompt chains to autonomously plan, reason and act in dynamic environments. \
+**A prompt chain could look like this:**
 ```text
-A prompt chain could look like this: \
-- Prompt1: Extract text content from a given URL or document.\
-- Prompt2: Summarize the cleaned text. \
-- Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text \
-- Prompt4: Use the entities to search an internal knowledge base \
+- Prompt1: Extract text content from a given URL or document.
+- Prompt2: Summarize the cleaned text.
+- Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text. 
+- Prompt4: Use the entities to search an internal knowledge base. 
 - Prompt5: Generate final report with summary, entities and search results. 
 ```
+**Sample Code:**
+```
+# --- Prompt 1: Extract Information ---
+prompt_extract = ChatPromptTemplate.from_template(
+  "Extract the technical specifications from the following text:\n\n{text_input}"
+)
 
+# --- Prompt 2: Transform to JSON ---
+prompt_transform = ChatPromptTemplate.from_template(
+  "Transform the following specifications into a JSON object with "
+  "'cpu', 'memory', and 'storage' as keys:\n\n{specifications}"
+)
+
+# --- Build the Chain using LCEL ---
+# The StrOutputParser() converts the LLM's message output to a simple string.
+extraction_chain = prompt_extract | llm | StrOutputParser()
+
+# The full chain passes the output of the extraction chain into the 
+# 'specifications' variable for the transformation prompt.
+full_chain = (
+        {"specifications": extraction_chain}
+        | prompt_transform
+        | llm
+        | StrOutputParser()
+)
+
+# --- Run the Chain ---
+input_text = "The new laptop model features a 3.5 GHz octa-core processor, 16GB of RAM, and a 1TB NVMe SSD."
+
+# Execute the chain with the input text dictionary.
+final_result = full_chain.invoke({"text_input": input_text})
+```
 
 ###
