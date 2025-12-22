@@ -7,7 +7,7 @@ They possess **memory**, retain information across interactions, and can engage 
 
 Effectively realizing these characteristics introduces significant complexity. Hence, we need agentic design patterns to breakdown these complexities.
 
-## Why patterns matter in Agentic Development
+## Why patterns matter in Agentic Development?
 > How does the agent maintain state across multiple steps on its canvas?\
 > How does it decide when and how to use the tool?\
 > How is communication between agents managed?\
@@ -19,16 +19,30 @@ Using design patterns helps you avoid reinventing fundamental solutions for task
 Leveraging these established approaches accelerates your development process, allowing you to focus on unique aspects of your application rather than foundational mechanics of agent behavior. 
 
 ### 1. Prompt Chaining Pattern
-Prompt chaining, sometimes referred to as Pipeline pattern, represents a powerful paradigm for handling intricate tasks when leveraging LLMs.\
+Prompt chaining, sometimes referred to as Pipeline pattern, represents a powerful paradigm for handling intricate tasks when leveraging LLMs. 
 Rather than expecting an LLM to solve a complex problem in single, monolithic step, prompt chaining advocates for divide-and-conquer strategy.\
-The core idea is to break down the original, daunting problem into a sequence of smaller, more manageable sub-problems. Each sub-problem is addressed via a specially designed prompt and the output generated from one prompt is fed as input to subsequent prompt in the chain. 
+The core idea is to break down the original, daunting problem into a sequence of smaller, more manageable sub-problems. 
+Each sub-problem is addressed via a specially designed prompt and the output generated from one prompt is fed as input to subsequent prompt in the chain. 
 
-- Limitations of single prompts: 
+- **Limitations of single prompts:** 
   - For multifaceted tasks, using a single, complex prompt for an LLM can be inefficient, causing model to struggle with constraints and instructions, potentially leading to instruction neglect.
   - Leads to **parts of the prompt are overlooked**, **contextual drift** where model loses track of initial context
   - **error propagation** where early errors amplify
   - Prompts which require a longer context window where model gets insufficient information to respond back
   - Hallucinations where cognitive load increases the chance of incorrect information. 
-- Prompt Chaining, addresses these challenges by breaking the complex task into focussed, sequential workflow, which significantly improve reliability and control.
+  - **Prompt Chaining**, addresses these challenges by breaking the complex task into focussed, sequential workflow, which significantly improve reliability and control.
+
+Furthermore, prompt chaining is not just about breaking down problems, it also enables the integration of external knowledge and tools. At each step, the LLM can be instructed
+to interact with external systems, APIs or databases, enriching its knowledge and abilities beyond its internal training data, allowing them to function not just as isolated modles but more intelligent systems.\
+This serves as a foundation technique for building sophisticated AI Agents. These agents can utilize prompt chains to autonomously plan, reason and act in dynamic environments. 
+```text
+A prompt chain could look like this: \
+- Prompt1: Extract text content from a given URL or document.\
+- Prompt2: Summarize the cleaned text. \
+- Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text \
+- Prompt4: Use the entities to search an internal knowledge base \
+- Prompt5: Generate final report with summary, entities and search results. 
+```
+
 
 ###
