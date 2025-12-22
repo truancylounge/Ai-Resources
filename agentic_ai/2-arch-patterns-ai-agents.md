@@ -95,8 +95,9 @@ The core component of Routing pattern is the mechanism that performs the evaluat
 - **LLM-based Routing**: The model itself can be prompted to analyse the input and output a specific identifier or instruction that indicates the next step or destination.
   > A prompt might ask the LLM to "Analyze the following user query and output only the category: 'Order Status', 'Product Info', 'Technical Support', or 'Other'." \
   > The agentic system then reads this output and directs the workflow accordingly.
-- **Embedding-based Routing**
-- **Rule-based Routing**
+- **Embedding-based Routing**: The input query is converted to vector embedding, which is compared to embeddings of different routes or capabilities. The query is route to the route whose embedding is most similar. \
+  This is useful for **semantic routing**, where decision is based on meaning if input rather than just keywords. 
+- **Rule-based Routing**: 
 - **Machine Learning Model-Based Routing**
 
 
