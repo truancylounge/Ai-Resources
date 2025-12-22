@@ -6,6 +6,16 @@
 ### AI Agents Prod Journey
 ![AI Agents Prod Journey](./docs/content/imgs/journey/ai-agent-full-journey.png)
 
+### Security Tools
+- Frameworks to catch sensitive data leaks in real time
+  - HiddenLayer
+  - Cyera
+- LLM firewalls
+  - Lakera
+- Data and Model poisoning risk reduction
+  - Use tools like **ML-BOM** or **CycloneDX** to keep a record of where your training data originated, how it was used and when it was changed
+  - 
+
 ### Tools
 - [n8n](https://n8n.io/)
   - (https://pixeljets.com/blog/n8n/)
