@@ -94,6 +94,7 @@ The core component of Routing pattern is the mechanism that performs the evaluat
   The model itself can be prompted to analyse the input and output a specific identifier or instruction that indicates the next step or destination.
   E.g. 
   > A prompt might ask the LLM to "Analyze the following user query and output only the category: 'Order Status', 'Product Info', 'Technical Support', or 'Other'. \
+
   The agentic system then reads this output and directs the workflow accordingly.
 - **Embedding-based Routing**
 - **Rule-based Routing**
