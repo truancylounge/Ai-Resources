@@ -8,7 +8,14 @@ They possess **memory**, retain information across interactions, and can engage 
 Effectively realizing these characteristics introduces significant complexity. Hence, we need agentic design patterns to breakdown these complexities.
 
 ## Why patterns matter in Agentic Development
+> How does the agent maintain state across multiple steps on its canvas?
+> How does it decide when and how to use the tool?
+> How is communication between agents managed?
+> How do you build resilience into system to handle unexpected outcomes or errors?
+
+```text
 How does the agent maintain state across multiple steps on its canvas?
 How does it decide when and how to use the tool?
 How is communication between agents managed?
 How do you build resilience into system to handle unexpected outcomes or errors?
+```
