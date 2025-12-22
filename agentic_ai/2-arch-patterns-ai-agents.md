@@ -34,15 +34,15 @@ Each sub-problem is addressed via a specially designed prompt and the output gen
 
 Furthermore, prompt chaining is not just about breaking down problems, it also enables the integration of external knowledge and tools. At each step, the LLM can be instructed
 to interact with external systems, APIs or databases, enriching its knowledge and abilities beyond its internal training data, allowing them to function not just as isolated modles but more intelligent systems.\
-This serves as a foundation technique for building sophisticated AI Agents. These agents can utilize prompt chains to autonomously plan, reason and act in dynamic environments. \
+This serves as a foundation technique for building sophisticated AI Agents. These agents can utilize prompt chains to autonomously plan, reason and act in dynamic environments.
+
 **A prompt chain could look like this:**
-```text
-- Prompt1: Extract text content from a given URL or document.
-- Prompt2: Summarize the cleaned text.
-- Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text. 
-- Prompt4: Use the entities to search an internal knowledge base. 
-- Prompt5: Generate final report with summary, entities and search results. 
-```
+> - Prompt1: Extract text content from a given URL or document.\
+> - Prompt2: Summarize the cleaned text.\
+> - Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text. \
+> - Prompt4: Use the entities to search an internal knowledge base. \
+> - Prompt5: Generate final report with summary, entities and search results. 
+
 **Sample Code:**
 ```
 # --- Prompt 1: Extract Information ---
@@ -76,4 +76,13 @@ input_text = "The new laptop model features a 3.5 GHz octa-core processor, 16GB 
 final_result = full_chain.invoke({"text_input": input_text})
 ```
 
-###
+### 2. Routing Pattern
+Real world agentic systems must often arbitrate between multiple potential actions based on contingent factors, such as state of env, user input, or the outcome of preceding operation. 
+This capability of dynamic decision-making i.e. calls specialized functions, tools, or sub-processes, is achieved through a mechanism known as **Routing**. \
+Routing introduces a more flexible and context-aware system behavior.
+
+A sophisticated agent using routing could:
+
+
+
+### 3. 
