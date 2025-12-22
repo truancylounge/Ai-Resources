@@ -37,11 +37,11 @@ to interact with external systems, APIs or databases, enriching its knowledge an
 This serves as a foundation technique for building sophisticated AI Agents. These agents can utilize prompt chains to autonomously plan, reason and act in dynamic environments.
 
 **A prompt chain could look like this:**
-> - Prompt1: Extract text content from a given URL or document.\
-> - Prompt2: Summarize the cleaned text.\
-> - Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text. \
-> - Prompt4: Use the entities to search an internal knowledge base. \
-> - Prompt5: Generate final report with summary, entities and search results. 
+> Prompt1: Extract text content from a given URL or document.\
+> Prompt2: Summarize the cleaned text.\
+> Prompt3: Extract specific entities (e.g. names, dates, locations) from summary of original text. \
+> Prompt4: Use the entities to search an internal knowledge base. \
+> Prompt5: Generate final report with summary, entities and search results. 
 
 **Sample Code:**
 ```
@@ -82,7 +82,22 @@ This capability of dynamic decision-making i.e. calls specialized functions, too
 Routing introduces a more flexible and context-aware system behavior.
 
 A sophisticated agent using routing could:
+> 1. Analyze the user's query
+> 2. Route the query based on its intent:
+>    - If intent is "check order status", route to sub-agent or tool chain that interacts with order database
+>    - If intent is "product information", route to sub-agent or chain that searches the product catalog
+>    - If intent is "tech support", escalate to human
+>    - If intent is unclear, route to a clarification sub-agent or prompt chain. 
 
+The core component of Routing pattern is the mechanism that performs the evaluation and directs the flow. This can be implemented in several ways:
+- **LLM-based Routing**:
+  The model itself can be prompted to analyse the input and output a specific identifier or instruction that indicates the next step or destination.
+  E.g. 
+  > A prompt might ask the LLM to "Analyze the following user query and output only the category: 'Order Status', 'Product Info', 'Technical Support', or 'Other'. \
+  The agentic system then reads this output and directs the workflow accordingly.
+- **Embedding-based Routing**
+- **Rule-based Routing**
+- **Machine Learning Model-Based Routing**
 
 
 ### 3. 
