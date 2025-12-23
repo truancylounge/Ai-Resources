@@ -107,7 +107,7 @@ The core component of Routing pattern is the mechanism that performs the evaluat
 
 ![Router Pattern, using LLM as a Router](../docs/content/imgs/architecture/ai-agents-router-pattern.png)
 
-Example: A "coordinator" that routes user requests to different simulated "sub-agent" handlers based on requests intent (booking, info or unclear)
+**Use Case:** A "coordinator" that routes user requests to different simulated "sub-agent" handlers based on requests intent (booking, info or unclear)
 The system uses a model to classify the request and then delegates it to appropriate handler function via basic delegation pattern.
 
 <details>
@@ -200,4 +200,103 @@ main()
 We have explored **Prompt Chaining** for sequential workflows and **Routing** for dynamic decision-making and transitions between different paths.
 While these patterns are essential, many complex agentic tasks involve multiple sub-tasks that can be executed simultaneously rather than one after the other. \
 **Parallelization** involves executing multiple components, such as LLM calls, tools usages or even entire sub-agents concurrently. 
+Implementing parallelization requires frameworks that support asynchronous execution or multi-threading/multiprocessing. Modern agentic frameworks are designed with asynchronous operations in mind, allowing you to define steps that can run in parallel. 
 
+> [!NOTE]
+> Asyncio library provides concurrency, not parallelism. It achieves this on a single thread by using an event loop that switches between tasks when one is idle. 
+> This creates the effect of multiple tasks being processed at once, but the code is being executed only on one thread.  
+
+<details>
+<summary>Sample Code: </summary>
+
+```
+import asyncio
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnableParallel, RunnablePassthrough, Runnable
+
+# --- Define Independent Chains ---
+# These three chains represent distinct tasks that can be executed in parallel.
+
+summarize_chain: Runnable = (
+    ChatPromptTemplate.from_messages([
+        ("system", "Summarize the following topic concisely:"),
+        ("user", "{topic}")
+    ])
+    | llm
+    | StrOutputParser()
+)
+
+questions_chain: Runnable = (
+    ChatPromptTemplate.from_messages([
+        ("system", "Generate three interesting questions about the following topic:"),
+        ("user", "{topic}")
+    ])
+    | llm
+    | StrOutputParser()
+)
+
+terms_chain: Runnable = (
+    ChatPromptTemplate.from_messages([
+        ("system", "Identify 5-10 key terms from the following topic, separated by commas:"),
+        ("user", "{topic}")
+    ])
+    | llm
+    | StrOutputParser()
+)
+
+# --- Build the Parallel + Synthesis Chain ---
+
+# 1. Define the block of tasks to run in parallel. 
+# The results of these, along with the original topic, will be fed into the next step.
+map_chain = RunnableParallel(
+    {
+        "summary": summarize_chain,
+        "questions": questions_chain,
+        "key_terms": terms_chain,
+        "topic": RunnablePassthrough()  # Pass the original topic through
+    }
+)
+
+# 2. Define the final synthesis prompt which will combine the parallel results.
+synthesis_prompt = ChatPromptTemplate.from_messages([
+    ("system", """Based on the following information:
+Summary: {summary}
+Related Questions: {questions}
+Key Terms: {key_terms}
+
+Synthesize a comprehensive answer."""),
+    ("user", "Original topic: {topic}")
+])
+
+# 3. Construct the full chain
+full_parallel_chain = map_chain | synthesis_prompt | llm | StrOutputParser()
+
+# --- Run the Chain ---
+
+async def run_parallel_example(topic: str) -> None:
+    """
+    Asynchronously invokes the parallel processing chain with a specific topic.
+    """
+    if not llm:
+        print("LLM not initialized. Cannot run example.")
+        return
+
+    print(f"\n--- Running Parallel LangChain Example for Topic: '{topic}' ---")
+    
+    try:
+        # The input is passed to each runnable in the map_chain simultaneously.
+        response = await full_parallel_chain.ainvoke(topic)
+        print("\n--- Final Response ---")
+        print(response)
+    except Exception as e:
+        print(f"\nAn error occurred during chain execution: {e}")
+
+if __name__ == "__main__":
+    test_topic = "The history of space exploration"
+    # Standard way to run an async function in modern Python
+    asyncio.run(run_parallel_example(test_topic))
+```
+</details>
+
+### Reflection Pattern
