@@ -110,6 +110,7 @@ The system uses a model to classify the request and then delegates it to appropr
 **Sample Code:**
 <details>
 <summary>Sample Code:</summary>
+
 ```
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
