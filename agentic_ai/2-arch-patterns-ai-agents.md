@@ -102,12 +102,14 @@ The core component of Routing pattern is the mechanism that performs the evaluat
 - **Machine Learning Model-Based Routing**, it employs a discriminative model, such as a classifier, that has been specifically trained on small corpus of labeled data to perform a routing task. 
   It does share conceptual similarities with embedding-based models, its key characteristic is the supervised fine-tuning process, which adjusts the model's parameters to create a specialized routing function. 
 
-Example: A "coordinator" that routes user requests to different simulated "sub-agent" handlers based on requests intent (booking, info or unclear)
-The system uses a model to classify the request and then delegates it to appropriate handler function via basic delegation pattern. 
-
 ![Router Pattern, using LLM as a Router](../docs/content/imgs/architecture/ai-agents-router-pattern.png)
 
+Example: A "coordinator" that routes user requests to different simulated "sub-agent" handlers based on requests intent (booking, info or unclear)
+The system uses a model to classify the request and then delegates it to appropriate handler function via basic delegation pattern.
+
 **Sample Code:**
+<details>
+<summary>Sample Code:</summary>
 ```
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -116,30 +118,30 @@ from langchain_core.runnables import RunnablePassthrough, RunnableBranch, Runnab
 # --- Define Simulated Sub-Agent Handlers ---
 
 def booking_handler(request: str) -> str:
-    """Simulates the Booking Agent handling a request."""
-    print("\n--- DELEGATING TO BOOKING HANDLER ---")
-    return f"Booking Handler processed request: '{request}'. Result: Simulated booking action."
+"""Simulates the Booking Agent handling a request."""
+print("\n--- DELEGATING TO BOOKING HANDLER ---")
+return f"Booking Handler processed request: '{request}'. Result: Simulated booking action."
 
 def info_handler(request: str) -> str:
-    """Simulates the Info Agent handling a request."""
-    print("\n--- DELEGATING TO INFO HANDLER ---")
-    return f"Info Handler processed request: '{request}'. Result: Simulated information retrieval."
+"""Simulates the Info Agent handling a request."""
+print("\n--- DELEGATING TO INFO HANDLER ---")
+return f"Info Handler processed request: '{request}'. Result: Simulated information retrieval."
 
 def unclear_handler(request: str) -> str:
-    """Handles requests that couldn't be delegated."""
-    print("\n--- HANDLING UNCLEAR REQUEST ---")
-    return f"Coordinator could not delegate request: '{request}'. Result: Please clarify."
+"""Handles requests that couldn't be delegated."""
+print("\n--- HANDLING UNCLEAR REQUEST ---")
+return f"Coordinator could not delegate request: '{request}'. Result: Please clarify."
 
 # --- Define Coordinator Router Chain ---
 
 coordinator_router_prompt = ChatPromptTemplate.from_messages([
-    ("system", """Analyze the user's request and determine which specialist handler should process it.
+("system", """Analyze the user's request and determine which specialist handler should process it.
 - If the request is related to booking flights or hotels, output 'booker'.
 - For all other general information questions, output 'info'.
 - If the request is unclear or doesn't fit either category, output 'unclear'.
 
 ONLY output one word: 'booker', 'info', or 'unclear'."""),
-    ("user", "{request}")
+("user", "{request}")
 ])
 
 # Initialize the router chain
@@ -149,45 +151,48 @@ coordinator_router_chain = coordinator_router_prompt | llm | StrOutputParser()
 
 # Create the RunnableBranch to route based on the router's decision.
 delegation_branch = RunnableBranch(
-    (lambda x: x['decision'].strip() == 'booker', RunnableLambda(lambda x: booking_handler(x['request']['request']))),
-    (lambda x: x['decision'].strip() == 'info',   RunnableLambda(lambda x: info_handler(x['request']['request']))),
-    RunnableLambda(lambda x: unclear_handler(x['request']['request'])) # Default
+(lambda x: x['decision'].strip() == 'booker', RunnableLambda(lambda x: booking_handler(x['request']['request']))),
+(lambda x: x['decision'].strip() == 'info',   RunnableLambda(lambda x: info_handler(x['request']['request']))),
+RunnableLambda(lambda x: unclear_handler(x['request']['request'])) # Default
 )
 
 # Combine the router and the branch into a single coordinator agent
 coordinator_agent = (
-    {
-        "decision": coordinator_router_chain,
-        "request": RunnablePassthrough()
-    } 
-    | delegation_branch
+{
+"decision": coordinator_router_chain,
+"request": RunnablePassthrough()
+}
+| delegation_branch
 )
 
 # --- Example Usage ---
 
 def main():
-    if not llm:
-        print("\nSkipping execution due to LLM initialization failure.")
-        return
+  if not llm:
+  print("\nSkipping execution due to LLM initialization failure.")
+  return
 
-    print("\n--- Running with a booking request ---")
-    req_a = "Book me a flight to London."
-    result_a = coordinator_agent.invoke({"request": req_a})
-    print(f"Final Result A: {result_a}")
+  print("\n--- Running with a booking request ---")
+  req_a = "Book me a flight to London."
+  result_a = coordinator_agent.invoke({"request": req_a})
+  print(f"Final Result A: {result_a}")
 
-    print("\n--- Running with an info request ---")
-    req_b = "What is the capital of Italy?"
-    result_b = coordinator_agent.invoke({"request": req_b})
-    print(f"Final Result B: {result_b}")
+  print("\n--- Running with an info request ---")
+  req_b = "What is the capital of Italy?"
+  result_b = coordinator_agent.invoke({"request": req_b})
+  print(f"Final Result B: {result_b}")
 
-    print("\n--- Running with an unclear request ---")
-    req_c = "Tell me about quantum physics."
-    result_c = coordinator_agent.invoke({"request": req_c})
-    print(f"Final Result C: {result_c}")
+  print("\n--- Running with an unclear request ---")
+  req_c = "Tell me about quantum physics."
+  result_c = coordinator_agent.invoke({"request": req_c})
+  print(f"Final Result C: {result_c}")
 
 if __name__ == "__main__":
-    main()
+main()
 ```
+</details>
+
+
 ### 3. Parallelization Pattern
 We have explored **Prompt Chaining** for sequential workflows and **Routing** for dynamic decision-making and transitions between different paths.
 While these patterns are essential, many complex agentic tasks involve multiple sub-tasks that can be executed simultaneously rather than one after the other. \
