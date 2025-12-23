@@ -45,7 +45,9 @@ Prompt4: Use the entities to search an internal knowledge base.
 Prompt5: Generate final report with summary, entities and search results. 
 ```
 
-**Sample Code:**
+<details>
+<summary>Sample Code:</summary>
+
 ```
 # --- Prompt 1: Extract Information ---
 prompt_extract = ChatPromptTemplate.from_template(
@@ -77,6 +79,7 @@ input_text = "The new laptop model features a 3.5 GHz octa-core processor, 16GB 
 # Execute the chain with the input text dictionary.
 final_result = full_chain.invoke({"text_input": input_text})
 ```
+</details>
 
 ### 2. Routing Pattern
 Real world agentic systems must often arbitrate between multiple potential actions based on contingent factors, such as state of env, user input, or the outcome of preceding operation. 
@@ -107,7 +110,6 @@ The core component of Routing pattern is the mechanism that performs the evaluat
 Example: A "coordinator" that routes user requests to different simulated "sub-agent" handlers based on requests intent (booking, info or unclear)
 The system uses a model to classify the request and then delegates it to appropriate handler function via basic delegation pattern.
 
-**Sample Code:**
 <details>
 <summary>Sample Code:</summary>
 
