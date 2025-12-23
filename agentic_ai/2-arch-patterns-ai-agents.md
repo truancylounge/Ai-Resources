@@ -207,96 +207,190 @@ Implementing parallelization requires frameworks that support asynchronous execu
 > This creates the effect of multiple tasks being processed at once, but the code is being executed only on one thread.  
 
 <details>
-<summary>Sample Code: </summary>
+  <summary>Sample Code: </summary>
 
-```
-import asyncio
-from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnableParallel, RunnablePassthrough, Runnable
-
-# --- Define Independent Chains ---
-# These three chains represent distinct tasks that can be executed in parallel.
-
-summarize_chain: Runnable = (
-    ChatPromptTemplate.from_messages([
-        ("system", "Summarize the following topic concisely:"),
-        ("user", "{topic}")
-    ])
-    | llm
-    | StrOutputParser()
-)
-
-questions_chain: Runnable = (
-    ChatPromptTemplate.from_messages([
-        ("system", "Generate three interesting questions about the following topic:"),
-        ("user", "{topic}")
-    ])
-    | llm
-    | StrOutputParser()
-)
-
-terms_chain: Runnable = (
-    ChatPromptTemplate.from_messages([
-        ("system", "Identify 5-10 key terms from the following topic, separated by commas:"),
-        ("user", "{topic}")
-    ])
-    | llm
-    | StrOutputParser()
-)
-
-# --- Build the Parallel + Synthesis Chain ---
-
-# 1. Define the block of tasks to run in parallel. 
-# The results of these, along with the original topic, will be fed into the next step.
-map_chain = RunnableParallel(
-    {
-        "summary": summarize_chain,
-        "questions": questions_chain,
-        "key_terms": terms_chain,
-        "topic": RunnablePassthrough()  # Pass the original topic through
-    }
-)
-
-# 2. Define the final synthesis prompt which will combine the parallel results.
-synthesis_prompt = ChatPromptTemplate.from_messages([
-    ("system", """Based on the following information:
-Summary: {summary}
-Related Questions: {questions}
-Key Terms: {key_terms}
-
-Synthesize a comprehensive answer."""),
-    ("user", "Original topic: {topic}")
-])
-
-# 3. Construct the full chain
-full_parallel_chain = map_chain | synthesis_prompt | llm | StrOutputParser()
-
-# --- Run the Chain ---
-
-async def run_parallel_example(topic: str) -> None:
-    """
-    Asynchronously invokes the parallel processing chain with a specific topic.
-    """
-    if not llm:
-        print("LLM not initialized. Cannot run example.")
-        return
-
-    print(f"\n--- Running Parallel LangChain Example for Topic: '{topic}' ---")
-    
-    try:
-        # The input is passed to each runnable in the map_chain simultaneously.
-        response = await full_parallel_chain.ainvoke(topic)
-        print("\n--- Final Response ---")
-        print(response)
-    except Exception as e:
-        print(f"\nAn error occurred during chain execution: {e}")
-
-if __name__ == "__main__":
-    test_topic = "The history of space exploration"
-    # Standard way to run an async function in modern Python
-    asyncio.run(run_parallel_example(test_topic))
-```
+  ```
+  import asyncio
+  from langchain_core.prompts import ChatPromptTemplate
+  from langchain_core.output_parsers import StrOutputParser
+  from langchain_core.runnables import RunnableParallel, RunnablePassthrough, Runnable
+  
+  # --- Define Independent Chains ---
+  # These three chains represent distinct tasks that can be executed in parallel.
+  
+  summarize_chain: Runnable = (
+      ChatPromptTemplate.from_messages([
+          ("system", "Summarize the following topic concisely:"),
+          ("user", "{topic}")
+      ])
+      | llm
+      | StrOutputParser()
+  )
+  
+  questions_chain: Runnable = (
+      ChatPromptTemplate.from_messages([
+          ("system", "Generate three interesting questions about the following topic:"),
+          ("user", "{topic}")
+      ])
+      | llm
+      | StrOutputParser()
+  )
+  
+  terms_chain: Runnable = (
+      ChatPromptTemplate.from_messages([
+          ("system", "Identify 5-10 key terms from the following topic, separated by commas:"),
+          ("user", "{topic}")
+      ])
+      | llm
+      | StrOutputParser()
+  )
+  
+  # --- Build the Parallel + Synthesis Chain ---
+  
+  # 1. Define the block of tasks to run in parallel. 
+  # The results of these, along with the original topic, will be fed into the next step.
+  map_chain = RunnableParallel(
+      {
+          "summary": summarize_chain,
+          "questions": questions_chain,
+          "key_terms": terms_chain,
+          "topic": RunnablePassthrough()  # Pass the original topic through
+      }
+  )
+  
+  # 2. Define the final synthesis prompt which will combine the parallel results.
+  synthesis_prompt = ChatPromptTemplate.from_messages([
+      ("system", """Based on the following information:
+  Summary: {summary}
+  Related Questions: {questions}
+  Key Terms: {key_terms}
+  
+  Synthesize a comprehensive answer."""),
+      ("user", "Original topic: {topic}")
+  ])
+  
+  # 3. Construct the full chain
+  full_parallel_chain = map_chain | synthesis_prompt | llm | StrOutputParser()
+  
+  # --- Run the Chain ---
+  
+  async def run_parallel_example(topic: str) -> None:
+      """
+      Asynchronously invokes the parallel processing chain with a specific topic.
+      """
+      if not llm:
+          print("LLM not initialized. Cannot run example.")
+          return
+  
+      print(f"\n--- Running Parallel LangChain Example for Topic: '{topic}' ---")
+      
+      try:
+          # The input is passed to each runnable in the map_chain simultaneously.
+          response = await full_parallel_chain.ainvoke(topic)
+          print("\n--- Final Response ---")
+          print(response)
+      except Exception as e:
+          print(f"\nAn error occurred during chain execution: {e}")
+  
+  if __name__ == "__main__":
+      test_topic = "The history of space exploration"
+      # Standard way to run an async function in modern Python
+      asyncio.run(run_parallel_example(test_topic))
+  ```
 </details>
 
-### Reflection Pattern
+### 4. Reflection Pattern
+The Reflection pattern involves an agent evaluating its own work, output or internal state and using that evaluation to improve its performance or refine its response. 
+It's a form of self-correction or self-improvement, allowing the agent to iteratively refine its output or adjust approach based on feedback or comparing against desired criteria. 
+Reflection can occasionally be facilitated by a separate agent whose specific role is to analyze the output of an initial agent. 
+
+The process typically involves the following stages
+- **Execution**, The agent performs a task or generate initial output
+- **Evaluation/Critique**, The agent analyzes the results of previous step (often another LLM call or set of rules). This evaluation might check for factual accuracy, coherence, style, completeness or adherence to instructions. 
+- **Reflection/Refinement**, Based on the critique, the agent determines how to improve i.e. generate a refined output, adjust parameters for a subsequent step or even modify the overall plan. 
+- Iteration (Optional but common), The refined output or adjusted approach can then be executed and the reflection process can repeat until a satisfactory result is achieved or stopping condition is met.
+
+Reflection pattern separates the process into two distinct logical roles: a **Producer** and a **Critic**. This is often called **"Generator-Critic"** or **"Producer-Reviewer"** model.
+
+<details>
+  <summary>Sample Code: </summary>
+
+  ```
+  from langchain_core.messages import HumanMessage, SystemMessage
+  
+  def run_reflection_loop():
+      """
+      Demonstrates a multi-step AI reflection loop to progressively
+      improve a Python function.
+      """
+      # --- The Core Task ---
+      task_prompt = """
+  Your task is to create a Python function named `calculate_factorial`.
+  This function should do the following:
+  1. Accept a single integer `n` as input.
+  2. Calculate its factorial (n!).
+  3. Include a clear docstring explaining what the function does.
+  4. Handle edge cases: The factorial of 0 is 1.
+  5. Handle invalid input: Raise a ValueError if the input is a negative number.
+  """
+  
+      # --- The Reflection Loop ---
+      max_iterations = 3
+      current_code = ""
+      
+      # We build a conversation history to provide context for refinement
+      message_history = [HumanMessage(content=task_prompt)]
+  
+      for i in range(max_iterations):
+          print("\n" + "="*25 + f" REFLECTION LOOP: ITERATION {i + 1} " + "="*25)
+  
+          # --- 1. GENERATE / REFINE STAGE ---
+          if i == 0:
+              print("\n>>> STAGE 1: GENERATING initial code...")
+              response = llm.invoke(message_history)
+              current_code = response.content
+          else:
+              print("\n>>> STAGE 1: REFINING code based on previous critique...")
+              # Instruct the model to apply the critiques found in message_history
+              message_history.append(HumanMessage(content="Please refine the code using the critiques provided."))
+              response = llm.invoke(message_history)
+              current_code = response.content
+              
+          print(f"\n--- Generated Code (v{i + 1}) ---\n{current_code}")
+          message_history.append(response) 
+  
+          # --- 2. REFLECT STAGE ---
+          print("\n>>> STAGE 2: REFLECTING on the generated code...")
+          
+          reflector_messages = [
+              SystemMessage(content="""
+  You are a senior software engineer and an expert in Python.
+  Your role is to perform a meticulous code review. Critically evaluate 
+  the code based on requirements. Look for bugs, style issues, and missing edge cases.
+  If the code is perfect, respond ONLY with 'CODE IS PERFECT'.
+  Otherwise, provide a bulleted list of your critiques.
+  """),
+              HumanMessage(content=f"Original Task:\n{task_prompt}\n\nCode to Review:\n{current_code}")
+          ]
+          
+          critique_response = llm.invoke(reflector_messages)
+          critique = critique_response.content
+  
+          # --- 3. STOPPING CONDITION ---
+          if "CODE IS PERFECT" in critique:
+              print("\n--- Critique ---\nNo further critiques found. The code is satisfactory.")
+              break
+              
+          print("\n--- Critique ---\n" + critique)
+          
+          # Add the critique to the history for the next iteration
+          message_history.append(HumanMessage(content=f"Critique of the previous code:\n{critique}"))
+  
+      print("\n" + "="*30 + " FINAL RESULT " + "="*30)
+      print("\nFinal refined code after the reflection process:\n")
+      print(current_code)
+  
+  if __name__ == "__main__":
+      run_reflection_loop()
+  ```
+</details>
