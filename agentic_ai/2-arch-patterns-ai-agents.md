@@ -312,6 +312,8 @@ The process typically involves the following stages
 
 Reflection pattern separates the process into two distinct logical roles: a **Producer** and a **Critic**. This is often called **"Generator-Critic"** or **"Producer-Reviewer"** model.
 
+![Reflection Design Pattern](../docs/content/imgs/architecture/ai-agents-reflection-pattern.png)
+
 <details>
   <summary>Sample Code: </summary>
 
@@ -393,4 +395,40 @@ Reflection pattern separates the process into two distinct logical roles: a **Pr
   if __name__ == "__main__":
       run_reflection_loop()
   ```
+</details>
+
+#### Practical Applications and Use Cases:
+- Creative writing and Content Generation
+- Code Generation and Debugging
+- Summarization and Information Synthesis
+- Conversational Agents
+
+> [!Note]
+> The separation of concern is powerful because it prevents the "cognitive bias" of an agent reviewing its own work. The Critic agent approaches the output with fresh perspective, dedicated entirely to finding errors and areas of improvement.
+> The benefits of reflection patterns come at cost of increased latency and computational expense, along with higher risk of exceeding model's context window or throttled by API services.
+> Full iterative reflection often requires stateful workflows (like LangGraph), a single reflection step can be implemented in LangChain.
+
+### 5. Tool Use Pattern (Function Calling)
+Chaining, Routing, Parallelization, Reflection are agentic patterns which primarily involve orchestrating interactions between language models and managing the flow of information within the agent's internal workflow. 
+However, for agents to interact with real world or external systems, they need ability to use Tools.\
+The Tool Use pattern, often implemented via Function Calling, enables an agent to interact with external APIs, databases, services or even execute code. It allows LLM to decide when and how to use specific tool based on user's request. 
+
+The process involves following steps:
+1. **Tool Definition**, External functions or capabilities are defined and described to the LLM. The description includes the function's purpose, its name and the parameters it accepts, along with their types and descriptions. 
+2. **LLM Decision**, The LLM received the user's request and the available tools definitions. LLM now decides if calling one of more tools is necessary to fulfill the request. 
+3. **Function Call Generation**, If the LLM decides to use a tool, it generates a structured output (JSON Object) that specifies the name of tool to call and arguments to pass to it, extracted from user's request
+4. **Tool Execution**, The agentic framework intercepts this structured output, identifies the requested tool and executes the external function with provided arguments. 
+5. **Observation/Result**, The output or result from tool execution is returned to the agent. 
+6. **LLM Processing**, The LLM receives the tool's output as context and uses it to formulate final response to user or decide on next steps in workflow. 
+
+This pattern is fundamental because it breaks the limitation of LLMs training data and allows it to access upto date information or trigger real world actions. 
+
+![Tools Use Design Pattern](../docs/content/imgs/architecture/ai-agents-tools-use-pattern.png)
+
+<details>
+  <summary>Sample Code: </summary>
+  
+  ```
+  ```
+
 </details>
