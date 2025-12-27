@@ -503,3 +503,5 @@ This pattern is fundamental because it breaks the limitation of LLMs training da
   ```
 
 </details>
+
+### 6. Planning Pattern
