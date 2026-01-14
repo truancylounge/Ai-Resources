@@ -37,6 +37,7 @@
   ![Trip Planning Agent Evals](../docs/content/imgs/workflow/evals-trip-planning-agent.png)
 
 > [!NOTE] Evaluation Metrics:
+> 
 > **Ground Truth**, metric which show how far away the output is from reference output
 > 
 
