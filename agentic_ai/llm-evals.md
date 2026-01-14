@@ -36,6 +36,10 @@
   - Example of Evals for a Trip Planning Agent 
   ![Trip Planning Agent Evals](../docs/content/imgs/workflow/evals-trip-planning-agent.png)
 
+> [!NOTE] Evaluation Metrics:
+> **Ground Truth**, metric which show how far away the output is from reference output
+> 
+
 ## Tools used to Evaluate Agents
 - Trace Instrumentation, Used to understand what's happening with our agent underneath the hood
 - Eval Runner, which contains LLM as judge
