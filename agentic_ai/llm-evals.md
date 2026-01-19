@@ -46,15 +46,6 @@
   - Example of Evals for a **Trip Planning Agent** 
   ![Trip Planning Agent Evals](../docs/content/imgs/workflow/evals-trip-planning-agent.png)
 
-### Data Analysis Agent
-**Use case:** a data analysis assistant that can help us understand sales data from each of our stores
-**Skills:**
-  - Data lookup skill to query from database
-  - Data analysis skill to draw conclusions from data
-  - Data visualization skill to generate graphs and visualizations about data
-  ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
-
-
 > [!NOTE] 
 > **Evaluation Metrics:**
 > 1. **Ground Truth**, metric which show how far away the output is from reference output
@@ -75,6 +66,17 @@
 - **Prompt Playground**, used to iterate on your data to get expected results
 
 ![Tools used to Evaluate Agents](../docs/content/imgs/workflow/evals-tools.png)
+
+## Data Analysis Agent
+**Use case:** a data analysis assistant that can help us understand sales data from each of our stores
+**Skills:**
+- Data lookup skill to query from database
+- Data analysis skill to draw conclusions from data
+- Data visualization skill to generate graphs and visualizations about data
+  ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
+
+
+
 
 ## Resources
 - https://docs.n8n.io/advanced-ai/evaluations/overview/
