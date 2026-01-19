@@ -34,12 +34,10 @@
     - **Action/Skills**, executing code/tools (creating requests, utilizing APIs, making LLM calls)
       - E.g. **RAG Skill**, i.e (Embed Input Query) <-> (Vector DB Lookup) <-> (LLM call w/retrieved context)
     - Similarly, we can also think of Agents as having 1. **Router** 2. **Skills (tools)** 3. **Memory and State**
-    - Example of **Data Analysis Agent**
-      - Skills: 
-        - Data lookup skill to query from database
-        - Data analysis skill to draw conclusions from data
-        - Data visualization skill to generate graphs and visualizations about data
-      ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
+    - Memory and State, is shared state that can be accessed by each component in the agent. Used to Store
+        - Retrieved Context
+        - Configuration variables
+        - Previous agent execution steps, Many LLM Apis rely on receiving each agent step to decide on the next step
   - Agents use cases:
     - Personal Assistants, that help take notes and transcribe information for us
     - Desktop or Browser Agents, that help automate repetitive tasks
@@ -47,6 +45,15 @@
     - Research Assistant
   - Example of Evals for a **Trip Planning Agent** 
   ![Trip Planning Agent Evals](../docs/content/imgs/workflow/evals-trip-planning-agent.png)
+
+### Data Analysis Agent
+**Use case:** a data analysis assistant that can help us understand sales data from each of our stores
+**Skills:**
+  - Data lookup skill to query from database
+  - Data analysis skill to draw conclusions from data
+  - Data visualization skill to generate graphs and visualizations about data
+  ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
+
 
 > [!NOTE] 
 > **Evaluation Metrics:**
@@ -61,11 +68,11 @@
 >    2. 
 
 ## Tools used to Evaluate Agents
-- Trace Instrumentation, Used to understand what's happening with our agent underneath the hood
-- Eval Runner, which contains LLM as judge
-- Data Sets, which can be used to rerun experiments
-- Human Feedback, to capture human annotations
-- Prompt Playground, used to iterate on your data to get expected results
+- **Trace Instrumentation**, Used to understand what's happening with our agent underneath the hood
+- **Eval Runner**, which contains LLM as judge
+- **Data Sets**, which can be used to rerun experiments
+- **Human Feedback**, to capture human annotations
+- **Prompt Playground**, used to iterate on your data to get expected results
 
 ![Tools used to Evaluate Agents](../docs/content/imgs/workflow/evals-tools.png)
 
