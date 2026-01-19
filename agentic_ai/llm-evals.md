@@ -68,8 +68,8 @@
 ![Tools used to Evaluate Agents](../docs/content/imgs/workflow/evals-tools.png)
 
 ## Data Analysis Agent
-**Use case:** 
-  A data analysis assistant that can help us understand sales data from each of our stores \
+**Use case**:
+> A data analysis assistant that can help us understand sales data from each of our stores \
 **Skills:**
 - Data lookup skill to query from database
 - Data analysis skill to draw conclusions from data
