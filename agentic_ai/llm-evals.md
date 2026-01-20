@@ -73,6 +73,7 @@
 - **Data lookup** skill to query from database (multiple steps: Prepare Database | Generate SQL | Execute SQL )
 - **Data analysis** skill to draw conclusions from data (Steps: Generate Analysis)
 - **Data visualization** skill to generate graphs and visualizations about data (Steps: Generate chart config | Generate Python code based on config)
+
   ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
 
 We will be looking at 3 types of Evaluators for the Data Analysis Agent:
