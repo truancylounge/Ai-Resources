@@ -92,7 +92,14 @@ We will be looking at 3 types of Evaluators for the Data Analysis Agent:
       ![LLM As Judge Booking Agent](../docs/content/imgs/workflow/evals-llm-as-judge-booking.png)
     - Evaluate relevance of documents retrieved in a rag system. The Eval LLM will assign "relevant" or "irrelevant" tag to the documents retrieved for the user query.
       ![LLM As Judge RAG](../docs/content/imgs/workflow/evals-llm-as-judge-rag.png)
-    - 
+    - **<ins>Important considerations when using LLM Judges </ins>**:
+      - Only best models align closely with human judgement, they will never be 100% accurate
+      - Tuning LLM Judge prompt can help close the gap
+> [!Note]
+> Important considerations when using LLM Judges
+> - Only best models align closely with human judgement, they will never be 100% accurate
+> - Tuning LLM Judge prompt can help close the gap
+> - 
   - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs
 
 
