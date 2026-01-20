@@ -84,9 +84,9 @@ We will be looking at 3 types of Evaluators for the Data Analysis Agent:
       - Matching regex, e.g. response contains only numbers
       - JSON parseable
       - Contains keywords i.e. contains specific career name etc
-    - > **If we have ground truth data of expected output for certain inputs then application output can be compared to expected output using**
-      - Direct match
-      - Cosine similarity/ cosine distance
+    > If we have ground truth data of expected output for certain inputs then application output can be compared to expected output using:
+    >  - Direct match
+    >  - Cosine similarity/ cosine distance
   - **LLM As Judge**, Using a separate LLM to judge the output of the application
   - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs
 
