@@ -76,6 +76,7 @@
 
   ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
 
+> [!Note]
 > We will be looking at **3 types of Evaluators** for the Data Analysis Agent:
   - **Code Based evaluators**
     - Running code to compare outputs to expected outputs, run calculations on outputs, etc.
@@ -101,6 +102,7 @@
     - Use tools like Phoenix or other observability platforms to construct a queue of lots of runs of your application. Construct an annotation queue, and then have human labelers attach feedback or judge response of application. 
     - Gather feedback from end user, thumbs up or down after llm spits out a response to evaluate how app is performing.
 
+> [!Note]
 > **What pieces of Data Analysis Agent will we be evaluation?**
 - **The Router**, function choices and parameter extraction
   The routers will be evaluated in two different ways
