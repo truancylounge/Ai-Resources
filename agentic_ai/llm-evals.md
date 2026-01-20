@@ -102,7 +102,7 @@ We will be looking at **3 types of Evaluators** for the Data Analysis Agent:
     - Gather feedback from end user, thumbs up or down after llm spits out a response to evaluate how app is performing.
 
 What aspects of Data Analysis Agent will we be evaluation?
-- **The Router**, function choices and parameter extraction \
+- **The Router**, function choices and parameter extraction
   The routers will be evaluated in two different ways
   - <ins>Function calling choice</ins> - did the router choose right function to call?
   - <ins>Parameter Extraction</ins> - did the router extract the right function parameters from the question?
