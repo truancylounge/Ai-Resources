@@ -77,9 +77,19 @@
   ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
 
 We will be looking at 3 types of Evaluators for the Data Analysis Agent:
-  - Code Based evaluators
-  - LLM As Judge
-  - Human Annotations
+  - **Code Based evaluators**
+    - Running code to compare outputs to expected outputs, run calculations on outputs, etc.
+    - Simplest kind of Evals, running automated testing methods to check if output meets specific criteria, verify format (e.g. JSON), keywords, patterns etc.
+    - Examples of code-based evaluators:
+      - Matching regex, e.g. response contains only numbers
+      - JSON parseable
+      - Contains keywords i.e. contains specific career name etc
+    - **If we have ground truth data of expected output for certain inputs then application output can be compared to expected output using**
+      - Direct match
+      - Cosine similarity/ cosine distance
+  - **LLM As Judge**, Using a separate LLM to judge the output of the application
+  - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs
+
 
 
 
