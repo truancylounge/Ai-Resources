@@ -85,6 +85,7 @@ We will be looking at 3 types of Evaluators for the Data Analysis Agent:
       - JSON parseable
       - Contains keywords i.e. contains specific career name etc
     > [!NOTE]
+    > 
     > If we have ground truth data of expected output for certain inputs then application output can be compared to expected output using:
     >  - Direct match
     >  - Cosine similarity/ cosine distance
