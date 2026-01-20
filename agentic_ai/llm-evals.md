@@ -55,8 +55,7 @@
 > 5. **Categorization**, whether the answer is exact match with reference answer. Return score of 0 or 1
 > 6. **Tools Used**, whether the execution used tools to not, Return a score between 0 and 1.
 > 7. Custom Metrics:
->    1. **RAG document relevance**, when working with vector databases, whether the document retrieved are relevant to the question. 
->    2. 
+>    1. **RAG document relevance**, when working with vector databases, whether the document retrieved are relevant to the question.
 
 ## Tools used to Evaluate Agents
 - **Trace Instrumentation**, Used to understand what's happening with our agent underneath the hood
@@ -75,6 +74,12 @@
 - **Data analysis** skill to draw conclusions from data (Steps: Generate Analysis)
 - **Data visualization** skill to generate graphs and visualizations about data (Steps: Generate chart config | Generate Python code based on config)
   ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
+
+We will be looking at 3 types of Evaluators for the Data Analysis Agent:
+  - Code Based evaluators
+  - LLM As Judge
+  - Human Annotations
+
 
 
 ## Resources
