@@ -76,7 +76,7 @@
 
   ![Data Analysis Agent](../docs/content/imgs/workflow/evals-data-analysis-agent.png)
 
-We will be looking at 3 types of Evaluators for the Data Analysis Agent:
+We will be looking at **3 types of Evaluators** for the Data Analysis Agent:
   - **Code Based evaluators**
     - Running code to compare outputs to expected outputs, run calculations on outputs, etc.
     - Simplest kind of Evals, running automated testing methods to check if output meets specific criteria, verify format (e.g. JSON), keywords, patterns etc.
@@ -92,15 +92,22 @@ We will be looking at 3 types of Evaluators for the Data Analysis Agent:
       ![LLM As Judge Booking Agent](../docs/content/imgs/workflow/evals-llm-as-judge-booking.png)
     - Evaluate relevance of documents retrieved in a rag system. The Eval LLM will assign "relevant" or "irrelevant" tag to the documents retrieved for the user query.
       ![LLM As Judge RAG](../docs/content/imgs/workflow/evals-llm-as-judge-rag.png)
-    - **<ins>Important considerations when using LLM Judges </ins>**:
-      - Only best models align closely with human judgement, they will never be 100% accurate
-      - Tuning LLM Judge prompt can help close the gap
 > [!Note]
 > Important considerations when using LLM Judges
 > - Only best models align closely with human judgement, they will never be 100% accurate
 > - Tuning LLM Judge prompt can help close the gap
-> - 
-  - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs
+> - When setting outputs of LLM judge always use **discrete classification labels**, never an undefined score i.e. "incorrect" vs "correct", not "1% ~ 100% accuracy"
+  - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs 
+    - Use tools like Phoenix or other observability platforms to construct a queue of lots of runs of your application. Construct an annotation queue, and then have human labelers attach feedback or judge response of application. 
+    - Gather feedback from end user, thumbs up or down after llm spits out a response to evaluate how app is performing.
+
+What aspects of Data Analysis Agent will we be evaluation?
+- **The Router**, function choices and parameter extraction \
+  The routers will be evaluated in two different ways
+  - <ins>Function calling choice</ins> - did the router choose right function to call?
+  - <ins>Parameter Extraction</ins> - did the router extract the right function parameters from the question?
+- **The skills/Functions**, can use standard LLM evaluations
+- **The path**, The most challenging to evaluate scalably
 
 
 
