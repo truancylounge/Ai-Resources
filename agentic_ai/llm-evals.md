@@ -104,15 +104,14 @@
 
 > [!IMPORTANT]
 > **What pieces of Data Analysis Agent will we be evaluation?**
-- **The Router**, function choices and parameter extraction
-  The routers will be evaluated in two different ways
-  - <ins>Function calling choice</ins> - did the router choose right function to call?
-  - <ins>Parameter Extraction</ins> - did the router extract the right function parameters from the question?
 
-  ![Evaluating Router using LLM-as-a-Judge](../docs/content/imgs/workflow/evals-llm-as-judge-router-prompt.png)
-- **The skills/Functions**, can use standard LLM evaluations
-- **The path**, The most challenging to evaluate scalably
-
+1. **The Router**, function choices and parameter extraction
+   The routers will be evaluated in two different ways
+   - <ins>Function calling choice</ins> - did the router choose right function to call?
+   - <ins>Parameter Extraction</ins> - did the router extract the right function parameters from the question?
+   ![Evaluating Router using LLM-as-a-Judge](../docs/content/imgs/workflow/evals-llm-as-judge-router-prompt.png)
+2. **The skills/Functions**, can use standard LLM evaluations
+3. **The path**, The most challenging to evaluate scalably
 
 
 
