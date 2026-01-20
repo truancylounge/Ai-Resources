@@ -86,8 +86,13 @@ We will be looking at 3 types of Evaluators for the Data Analysis Agent:
       - Contains keywords i.e. contains specific career name etc
     - **<ins>If we have ground truth data of expected output for certain inputs then application output can be compared to expected output using:</ins>**
       - Direct match
-      - Cosine similarity/ cosine distance
+      - Cosine similarity/ cosine distance to perform a semantic match between these values
   - **LLM As Judge**, Using a separate LLM to judge the output of the application
+    - Do a run of input/output through the app and construct a separate Eval Prompt template and run this via a judge LLM and assign a label to the response
+      ![LLM As Judge Booking Agent](../docs/content/imgs/workflow/evals-llm-as-judge-booking.png)
+    - Evaluate relevance of documents retrieved in a rag system. The Eval LLM will assign "relevant" or "irrelevant" tag to the documents retrieved for the user query.
+      ![LLM As Judge RAG](../docs/content/imgs/workflow/evals-llm-as-judge-rag.png)
+    - 
   - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs
 
 
