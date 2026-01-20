@@ -101,13 +101,12 @@
     - Use tools like Phoenix or other observability platforms to construct a queue of lots of runs of your application. Construct an annotation queue, and then have human labelers attach feedback or judge response of application. 
     - Gather feedback from end user, thumbs up or down after llm spits out a response to evaluate how app is performing.
 
-> What pieces of Data Analysis Agent will we be evaluation?
+> **What pieces of Data Analysis Agent will we be evaluation?**
 - **The Router**, function choices and parameter extraction
   The routers will be evaluated in two different ways
   - <ins>Function calling choice</ins> - did the router choose right function to call?
   - <ins>Parameter Extraction</ins> - did the router extract the right function parameters from the question?
-  
-  **Evaluating a Router using LLM-as-a-Judge technique:**
+
   ![Evaluating Router using LLM-as-a-Judge](../docs/content/imgs/workflow/evals-llm-as-judge-router-prompt.png)
 - **The skills/Functions**, can use standard LLM evaluations
 - **The path**, The most challenging to evaluate scalably
