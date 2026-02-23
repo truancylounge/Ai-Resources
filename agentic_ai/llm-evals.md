@@ -110,11 +110,27 @@
    - <ins>Function calling choice</ins> - did the router choose right function to call?
    - <ins>Parameter Extraction</ins> - did the router extract the right function parameters from the question?
    ![Evaluating Router using LLM-as-a-Judge](../docs/content/imgs/workflow/evals-llm-as-judge-router-prompt.png)
-2. **The skills/Functions**, can use standard LLM evaluations
-3. **The path**, The most challenging to evaluate scalably
+   Example of Evals where the correct tool was used, but failed in Parameter extraction. In this example the LLM used the same orderId as shipmentId for the second user query regarding arrival time.
+   ![Eval Router Failed Parameter Extraction](../docs/content/imgs/examples/evals-router-parameter-failure.png)
+2. **The skills/Functions**, can be evaluated using standard LLM or Code-Based evaluations
+   - Skills are mostly Api Calls, or other LLM calls hence these evals are mostly standard ones i.e.
+     - We can use LLM as Judge technique to evaluate aspects like:
+       - Relevance
+       - Hallucination
+       - Q&A Correctness
+       - Generated Code Readability
+       - Summarization
+     - We can use Code-Based evaluators for:
+       - Regex
+       - JSON parseable
+   ![Skill Evaluator](../docs/content/imgs/examples/evals-skills-tools.png)
+3. **The path**, The most challenging to evaluate scalable
 
 
 
 ## Resources
 - https://docs.n8n.io/advanced-ai/evaluations/overview/
-- 
+- Arize Phoenix Eval & Trace Cookbooks
+  - https://arize.com/docs/phoenix/cookbook
+  - https://arize.com/docs/phoenix/cookbook/human-in-the-loop-workflows-annotations/aligning-llm-evals-with-human-annotations-typescript
+  - https://arize.com/docs/phoenix/cookbook/tracing/agentic-rag-tracing

@@ -18,7 +18,7 @@
     - Tools like Arize Phoenix automatically do the above process for us esp with LLM code.
 - The detailed logs generated will be used to run Evals on the systems.
 - Trace and Spans of Data Analysis Agent (LLM spans in Orange, Chain spans in blue and Tool spans in yellow)
-  ![Data Analyst Phoenix Trace](../docs/content/imgs/samples/observability-trace-phoenix-sample1.png)
+  ![Data Analyst Phoenix Trace](../docs/content/imgs/examples/observability-trace-phoenix-sample1.png)
 
 > [!NOTE]
 > **OpenInference** is a set of conventions and plugins that is complimentary to OpenTelemetry to enable tracing of AI applications.
@@ -27,4 +27,9 @@
 - **Simplifies debugging** when building your application
 - **Provides a detailed log** of each call made in your app, which is necessary to run **performance evaluations**
 - Helps understand and control **the unpredictable behavior of LLMs**
+
+
+## Resources
+- Arize Phoenix Trace Cookbooks
+  - https://arize.com/docs/phoenix/cookbook/tracing/agentic-rag-tracing
 - 
