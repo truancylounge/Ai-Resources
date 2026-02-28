@@ -88,6 +88,7 @@
     - **<ins>If we have ground truth data of expected output for certain inputs then application output can be compared to expected output using:</ins>**
       - Direct match
       - Cosine similarity/ cosine distance to perform a semantic match between these values
+      
   - **LLM As Judge**, Using a separate LLM to judge the output of the application
     - Do a run of input/output through the app and construct a separate Eval Prompt template and run this via a judge LLM and assign a label to the response
       ![LLM As Judge Booking Agent](../docs/content/imgs/workflow/evals-llm-as-judge-booking.png)
@@ -97,7 +98,8 @@
 > Important considerations when using LLM Judges
 > - Only best models align closely with human judgement, they will never be 100% accurate
 > - Tuning LLM Judge prompt can help close the gap
-> - When setting outputs of LLM judge always use **discrete classification labels**, never an undefined score i.e. "incorrect" vs "correct", not "1% ~ 100% accuracy"
+> - When setting outputs of LLM judge always use **discrete classification labels**, never an undefined score i.e. "incorrect" vs "correct" ("relevant" vs "irrelevant") but never a score like "1% ~ 100% accuracy"
+
   - **Human Annotations**, Use human labelers or user feedback to evaluate application outputs 
     - Use tools like Phoenix or other observability platforms to construct a queue of lots of runs of your application. Construct an annotation queue, and then have human labelers attach feedback or judge response of application. 
     - Gather feedback from end user, thumbs up or down after llm spits out a response to evaluate how app is performing.
