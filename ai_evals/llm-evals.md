@@ -117,22 +117,16 @@
 2. **The skills/Functions**, can be evaluated using standard LLM or Code-Based evaluations
    - Skills are mostly Api Calls, or other LLM calls hence these evals are mostly standard ones i.e.
      - We can use LLM as Judge technique to evaluate aspects like:
-       - Relevance
-       - Hallucination
-       - Q&A Correctness
-       - Generated Code Readability
-       - Summarization
+       - **Relevance**
+       - **Hallucination**
+       - **Q&A Correctness**
+       - **Generated Code Readability**
+       - **Summarization**
      - We can use Code-Based evaluators for:
-       - Regex
-       - JSON parseable
+       - **Regex**
+       - **JSON parseable**
    ![Skill Evaluator](../docs/content/imgs/examples/evals-skills-tools.png)
-3. **The path**, The most challenging to evaluate scalable
-
-
-
-## Resources
-- https://docs.n8n.io/advanced-ai/evaluations/overview/
-- Arize Phoenix Eval & Trace Cookbooks
-  - https://arize.com/docs/phoenix/cookbook
-  - https://arize.com/docs/phoenix/cookbook/human-in-the-loop-workflows-annotations/aligning-llm-evals-with-human-annotations-typescript
-  - https://arize.com/docs/phoenix/cookbook/tracing/agentic-rag-tracing
+3. **The path**, In addition to test Agent's skills and router capabilities, we need to ensure agent can respond to user's query in efficient number of steps. 
+   - To assess this we use **<ins>Convergence score</ins>**, **Convergence measures how closely the agent follows the optimal path**. 
+   - **Agent Trajectory**, is a simple path agent takes through different router, tool and other logic steps for a given input.
+   - 

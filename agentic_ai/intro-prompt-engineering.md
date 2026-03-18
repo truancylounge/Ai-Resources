@@ -1,5 +1,30 @@
 # Prompt Engineering
 
+## Guidelines & Principles:
+### Write clear and specific instructions
+- Use delimiters like Triple quotes(""") or Angle Brackets(<>) or Triple Dashes(---)
+- Ask for structured output (JSON, HTML etc.)
+- Few Shot Prompting (provide successful examples so that model understands what to output)
+
+### Give the model time to think
+If we give model complex instructions and ask it to output in short amount of time it will make up stuff and ouput incorrect data.
+Below are few tactics to make model think a bit longer:
+- Specify steps to complete a task
+    Step 1: xxx
+    Step 2: xxx
+    ...
+    Step N: xxx
+- Instruct model to work out its own solution before rushing to a conclusion.
+    The above tactic really works well if checking a math problem where we give model steps to compute answer and match it against student's answer
+-  
+
+## How to write Effective Prompts?
+- Iterative Prompt Development
+  - Run Experiments & do Error Analysis and based on results tweak the Prompt and repeat
+  - Clarify instructions, this gives the model more time to think
+- 
+
+
 ### Prompt examples
 1. Prompt Engineer worker
 ```text
