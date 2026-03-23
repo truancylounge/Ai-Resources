@@ -8,7 +8,8 @@
   - https://docs.langchain.com/oss/python/langchain/structured-output
   - ToolStrategy or ProviderStrategy
 
-## ChatModels are language models that use a sequence of messages as inputs and return messages as output
+## ChatModels 
+  Language models that use a sequence of messages as inputs and return messages as output
   - https://docs.langchain.com/oss/python/langchain/models
   - In addition to text generation, many models support
     - **Tool Calling**
