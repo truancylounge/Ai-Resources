@@ -21,6 +21,11 @@ Decoding Ai Agents and their capabilities.
 
     ![Ai Agent Components](../docs/content/imgs/journey/ai-agent-components.png)
 
+5. ReAct Agent Architecture:
+   - ReAct i.e. Reasoning and Acting in LLM, we combine Reasoning aspect of LLM i.e. Chain of thought prompting and Action's which can be tool calling etc
+   - 
+   - 
+
 ### Architecture Patterns
 - **Reflection Pattern**, feedback loop or reinforcement learning i.e self correction constantly to optimise the future.
 - **Planning Pattern**, chain of thought prompting. Takes a structured approach i.e breakdown into multiple subtasks comes up with a plan and completes the task. 
