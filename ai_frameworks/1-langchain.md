@@ -8,9 +8,9 @@
   - https://docs.langchain.com/oss/python/langchain/structured-output
   - ToolStrategy or ProviderStrategy
 
-## ChatModels 
-  Language models that use a sequence of messages as inputs and return messages as output
+## ChatModels
   - https://docs.langchain.com/oss/python/langchain/models
+  - ChatModels are Language models that use a sequence of messages as inputs and return messages as output
   - In addition to text generation, many models support
     - **Tool Calling**
     - **Structured output**
@@ -41,8 +41,9 @@ model_with_tools = model.bind_tools([get_weather])
 response = model_with_tools.invoke("What's the weather in Paris?")
 ```    
 
-- **Messages** are fundamental unit of context for models in LangChain.
+## Messages 
   - https://docs.langchain.com/oss/python/langchain/messages
+  - Messages are fundamental unit of context for models in LangChain.
   - Messages are objects that contain:
     - **Role**, identifies the message type (System, User)
     - **Content**, actual content of the message, like text, images, audio, docs etc
@@ -103,8 +104,9 @@ for tool_call in response.tool_calls:
     print(f"ID: {tool_call['id']}")
 ```    
 
-- **Tools** extend what agents can do, letting them fetch real-time data, query external databases and take actions in the world
+## Tools 
   - https://docs.langchain.com/oss/python/langchain/tools
+  - Tools extend what agents can do, letting them fetch real-time data, query external databases and take actions in the world
   - Simplest way to creat a tool is with @tool decorator
   - <ins>**TODO: Research more on tools**</ins>
   - 
