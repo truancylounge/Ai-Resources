@@ -3,10 +3,12 @@
 ## Concepts
 - **Grounding**, means connecting an AI model to specific, trusted and external data sources to ensure its response is accurate, current and relevant.
     It acts as fact-checker, anchoring the model abstract knowledge to real world data to reduce hallucinations and relying on outdated untrusted data.
-- **Structured Output**
+
+## Structured Output
   - https://docs.langchain.com/oss/python/langchain/structured-output
   - ToolStrategy or ProviderStrategy
-- **ChatModels** are language models that use a sequence of messages as inputs and return messages as output
+
+## ChatModels are language models that use a sequence of messages as inputs and return messages as output
   - https://docs.langchain.com/oss/python/langchain/models
   - In addition to text generation, many models support
     - **Tool Calling**
