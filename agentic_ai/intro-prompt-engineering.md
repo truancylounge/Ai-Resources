@@ -1,4 +1,23 @@
 # Prompt Engineering
+- Types of Prompts
+  - **Zero Shot Prompting**
+    - In this scenario model is using it's trained knowledge to generate output and no extra context or input data is given.
+    - E.g. Create a list of top 10 richest neighbourhoods in USA
+    - Model relies on pre-existing knowledge hence it could be outdated 
+  - **Few Shot Prompting**
+    - In this scenario, model is given a few examples of the results/answers
+  - **Chain of Thought Prompting**
+    - LLMs are very good at a. Summarization b. Image Generation c. Code Generation and Optimization
+    - **LLMs aren't good at a. Multi Step Reasoning b. Common Sense**
+    - Breaks down complex problems into intermediate steps. A simple text **"Lets think step by step"** will make the LLM think more like human
+  - **ReAct Prompting**
+    - ReAct i.e. Reasoning and Acting in LLM
+    - Combines Reasoning aspect of LLM i.e. Chain of thought prompting and Action's which can be tool calling etc
+    - Reason => Action(tools) => Observations => Additional info back to LLM => Loop back until final answer
+  - Context Engineering a System Prompt
+    - Context Engineering is simply a way to give LLM the correct context via Instructions, previous interactions of user from tool calls and other external data etc
+    - https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+    - 
 
 ## Guidelines & Principles:
 ### Write clear and specific instructions
@@ -19,14 +38,20 @@ Below are few tactics to make model think a bit longer:
 -  
 
 ## How to write Effective Prompts?
-- Iterative Prompt Development
+- Prompt consists of following components:
+  - **Instructions**, tells the AI model what task to perform
+  - **Context**, is additional information to fine tune the instruction to generate better output
+  - **Input data**, is the information Ai model will process to complete the task i.e. images, text etc
+  - **Output Indicator**
+- **Iterative Prompt Development**
   - Run Experiments & do Error Analysis and based on results tweak the Prompt and repeat
   - Clarify instructions, this gives the model more time to think
 - 
 
-
-### Prompt examples
-1. Prompt Engineer worker
+### Prompt Resources
+1. Common System Prompts, https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools
+2. Effective Context Engineering for AI Agents, https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
+3. Prompt Engineer worker
 ```text
 You are a Prompt Engineer. Your job is to craft system prompts for AI Agents based on user requests.
 
@@ -63,7 +88,7 @@ The output should be a series of personalized email drafts customized for lead_c
 
 4. If the AI agent needs to use a tool to perform its task, it will indicate this on the system prompt, but you will not write any code for them (they already have the code for the tools they use).
 ```
-2. Prompt Reviewer worker
+4. Prompt Reviewer worker
 ```text
 You are a meticulous and insightful AI specializing in reviewing and enhancing custom prompts created for other AI agents.
 Your role is crucial in ensuring that the prompts are not only accurate and clear but also optimized for the best performance of the AI agents. 
