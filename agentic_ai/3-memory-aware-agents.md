@@ -125,15 +125,17 @@ Following memory operations need to be done to solve this problem - **Extraction
 3. Implement self updating memory that preserves technical details, emotional context and entity information
 4. Build tools to allow agents to expand summaries back to original conversations when needed
 
-| Index | Key Concepts | Description |
-| :--- | :--- | :--- |
-| 1 | **Context Window Management** | Tracking token usage to prevent overflow and trigger timely summarization |
-| 2 | **Memory Consolidation** | Compressing verbose conversations into structured summaries while preserving critical information |
-| 3 | **Summary Expansion** | Retrieving original conversation content from summary references when detail is needed |
-| 4 | **Self-Updating Memory** | Automatic marking of summarized messages to prevent re-processing |
+| Index | Key Concepts                  | Description                                                                                       |
+|:------|:------------------------------|:--------------------------------------------------------------------------------------------------|
+| 1     | **Context Window Management** | Tracking token usage to prevent overflow and trigger timely summarization                         |
+| 2     | **Memory Consolidation**      | Compressing verbose conversations into structured summaries while preserving critical information |
+| 3     | **Summary Expansion**         | Retrieving original conversation content from summary references when detail is needed            |
+| 4     | **Self-Updating Memory**      | Automatic marking of summarized messages to prevent re-processing                                 |
 
 
 ## Useful Patterns
 - Context Engineering, Maximising value of each token passed to LLM context, we want to have high signal/noise ratio for single token passed into LLM via various data sources.
+
 ![Context Engineering](../docs/content/imgs/journey/ai-agent-context-engineering.png)
-- 
+
+
