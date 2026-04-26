@@ -70,6 +70,24 @@ This database layer handles persistent storage, efficient retrieval and memory o
 
 ![Ai Agents Memory Types](../docs/content/imgs/overview/ai-agents-memory-types.png)
 
+
+| Index | Operation                       | Deterministic | Agent-Triggered |
+|:------|:--------------------------------|:-------------:|:---------------:|
+| 1     | `read_conversational_memory()`  |       ✅       |        ❌        |
+| 2     | `read_knowledge_base()`         |       ✅       |        ❌        |
+| 3     | `read_workflow()`               |       ✅       |        ❌        |
+| 4     | `read_entity()`                 |       ✅       |        ❌        |
+| 5     | `read_summary_context()`        |       ❌       |        ✅        |
+| 6     | `write_conversational_memory()` |       ✅       |        ❌        |
+| 7     | `write_workflow()`              |       ✅       |        ❌        |
+| 8     | `write_entity()`                |       ❌       |        ✅        |
+| 9     | `search_tavily()`               |       ❌       |        ✅        |
+| 10    | `expand_summary()`              |       ❌       |        ✅        |
+| 11    | `summarize_and_store()`         |       ❌       |        ✅        |
+| 12    | `read_toolbox()`                |       ✅       |        ✅        |
+
+
+
 ![Ai Agents Memory Operations](../docs/content/imgs/overview/ai-agents-memory-ops.png)
 
 - Classification of Memory operations in Agentic Systems
