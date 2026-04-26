@@ -110,8 +110,6 @@ This database layer handles persistent storage, efficient retrieval and memory o
 | 11    | `summarize_and_store()`         |       ❌       |        ✅        |
 | 12    | `read_toolbox()`                |       ✅       |        ✅        |
 
-![AI Agents Memory Ops Classification](../docs/content/imgs/journey/ai-agent-memory-ops-classification.png)
-
 ## Scaling Agent Tool Use with Semantic Tool Memory
 As your AI System grows we may have hundreds of tools available - APIs, database queries, calculators, search engines and more. 
 Passing all tools to LLM at inference time creates serious problems:
