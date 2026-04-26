@@ -68,11 +68,17 @@ This database layer handles persistent storage, efficient retrieval and memory o
 ## Memory Core & Memory Manager & Memory Operations
 - Memory Core & Memory Manager combined give AI Agents memory-augmented behavior
 
-![Ai Agents Memory Types](../docs/content/imgs/overview/ai-agents-memory-types.png)
+| Index | Memory Type        | Human Analogy             | Purpose                                      | Storage      | Retrieval Strategies Used                            |
+|:------|:-------------------|:--------------------------|:---------------------------------------------|:-------------|:-----------------------------------------------------|
+| 1     | **Conversational** | Short-term memory         | Chat history per thread                      | SQL Table    | Exact match by thread_id                             |
+| 2     | **Knowledge Base** | Long-term semantic memory | Facts, documents, search results             | Vector Store | Semantic similarity search                           |
+| 3     | **Workflow**       | Procedural memory         | Learned action patterns                      | Vector Store | Semantic similarity search + metadata filtering      |
+| 4     | **Toolbox**        | Skill memory              | Available tools & capabilities               | Vector Store | Semantic similarity search                           |
+| 5     | **Entity**         | Episodic memory           | People, places, systems mentioned            | Vector Store | Semantic similarity search                           |
+| 6     | **Summary**        | Compressed memory         | Condensed context for long conversations     | Vector Store | Semantic similarity search (with optional ID filter) |
+| 7     | **Tool Log**       | Execution audit trail     | Raw tool inputs/outputs and execution status | SQL Table    | Exact match by thread_id + timestamp ordering        |
 
-![Ai Agents Memory Operations](../docs/content/imgs/overview/ai-agents-memory-ops.png)
-
-- Classification of Memory operations in Agentic Systems
+- **Classification of Memory operations in Agentic Systems**
   - **Deterministic** (executed automatically by code)
     - Operations are run under **explicit, fixed conditions** e.g. "always at start of agent loop" or "always after tool execution"
     - **Advantages of deterministic Retrieval**:
