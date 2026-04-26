@@ -21,7 +21,7 @@ Following are main aspects of Spec driven development
   - Right level of details -> Goals, Mission, Target audience, Constraints
   - Low level decisions let agent figure out on its own
 - Example of a vet style clinic management app
-  ![Vet Style Management App](../docs/content/imgs/examples/sdd-vet-mgmt-app.png)
+  ![Vet Style Management App](docs/content/imgs/examples/sdd-vet-mgmt-app.png)
 - 
 
 ## SDD workflow
@@ -48,7 +48,7 @@ Following are main aspects of Spec driven development
       - **plan.md** as a series of numbered task groups
       - **requirements.md** for the scope, decisions and context
       - **validation.md** for how to know the implementation succeeded and can be merged
-    ![Spec Driven Development Journey](../docs/content/imgs/journey/sdd-journey.png)
+    ![Spec Driven Development Journey](docs/content/imgs/journey/sdd-journey.png)
 
 ### Skills
   - Give agents new capabilities and expertise
@@ -99,6 +99,11 @@ Important: You must use your AskUserQuestion tool, grouped on these 3, before wr
   - Context7 is a developer tool designed to provide LLMs and AI code editors real time version specific documentation
   - CLI + skills is gaining more traction than MCP lately.
   - Cli tools can take action with less setup and less context usage
+- **Ralph Loop:**
+  - The Ralph Loop AI agent (or "Ralph Wiggum Loop") is an autonomous AI coding framework that runs AI agents, like Claude Code or Amp, in an infinite while loop, creating fresh, clean context for each iteration to fix bugs and ship features, as described by its creator Geoffrey Huntley.
+  - It is designed to overcome "context pollution" (where AI gets confused by past errors) by separating the AI's memory into persistent git files rather than keeping everything in the LLM's context window.
+  - https://ghuntley.com/loop/
+  - https://github.com/snarktank/ralph
 
 ## Resources
 - https://github.com/https-deeplearning-ai/sc-spec-driven-development-files/blob/main/README.md
@@ -106,4 +111,3 @@ Important: You must use your AskUserQuestion tool, grouped on these 3, before wr
 - Github Spec Kit - https://github.com/github/spec-kit#-what-is-spec-driven-development
 - OpenSpec - https://github.com/Fission-AI/OpenSpec
 - ACP, agent client protocol - https://agentclientprotocol.com/get-started/introduction
-- 
