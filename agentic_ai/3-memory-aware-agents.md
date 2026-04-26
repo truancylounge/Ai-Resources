@@ -96,6 +96,43 @@ This database layer handles persistent storage, efficient retrieval and memory o
     - External Tool Call's are Agent triggered as well as judgement is needed based on User Query. 
 ![AI Agents Memory Ops Classification](../docs/content/imgs/journey/ai-agent-memory-ops-classification.png)
 
+## Scaling Agent Tool Use with Semantic Tool Memory
+As your AI System grows we may have hundreds of tools available - APIs, database queries, calculators, search engines and more. 
+Passing all tools to LLM at inference time creates serious problems:
+  - **Context bloat**, Tool definition consumes tokens, leaving less room for actual content
+  - **Tool selection failure**, LLM struggles to choose right tool when presented with too many options
+  - **Increased latency**, more tokens = slower inference
+  - **Higher cost**
+OpenAI and Anthropic typically recommend limiting number of tools exposed to an LLM (often 10-20 max for reliable selection)
+
+One of the ways to solve this problem is using **Toolbox pattern**.
+- Toolbox pattern uses tools as retrievable resources.
+- Using Embeddings + Semantic search to select the relevant Top-K tools per request
+
+![Scaling Tool Calls in Agents](../docs/content/imgs/architecture/ai-agent-memory-tool-calls-arch.png)
+
+- **Semantic Tool Retrieval pattern**
+  The Toolbox class solves this by treating tools as **searchable memory**.
+  1. **Register hundreds of tools** - Store all available tools with their descriptions and embeddings
+  2. **Retrieve only relevant tools** - At inference time, use vector search to find tools semantically relevant to current query
+  3. **Pass filtered tools to LLM** - Only the retrieved tools are passed to LLM
+
+## How to enable AI Agents to manage long-running conversations effectively?
+As conversations grow, a lot of valuable context of LLM is consumed, without proper memory management agents lose historical context or fail due to token limits
+Following memory operations need to be done to solve this problem - **Extraction -> Consolidation -> Self-Updating memory**
+1. Monitor context window utilization and detect when summarization is needed. 
+2. Extract and consolidate conversation history into structured summaries
+3. Implement self updating memory that preserves technical details, emotional context and entity information
+4. Build tools to allow agents to expand summaries back to original conversations when needed
+
+| Index | Key Concepts | Description |
+| :--- | :--- | :--- |
+| 1 | **Context Window Management** | Tracking token usage to prevent overflow and trigger timely summarization |
+| 2 | **Memory Consolidation** | Compressing verbose conversations into structured summaries while preserving critical information |
+| 3 | **Summary Expansion** | Retrieving original conversation content from summary references when detail is needed |
+| 4 | **Self-Updating Memory** | Automatic marking of summarized messages to prevent re-processing |
+
+
 ## Useful Patterns
 - Context Engineering, Maximising value of each token passed to LLM context, we want to have high signal/noise ratio for single token passed into LLM via various data sources.
 ![Context Engineering](../docs/content/imgs/journey/ai-agent-context-engineering.png)
