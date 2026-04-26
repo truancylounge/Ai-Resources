@@ -1,11 +1,12 @@
 # Building Memory Aware Agents
-AI Agents memory lifecycle
+
+**AI Agents memory lifecycle**
+
 ![Ai Agents Memory Lifecycle](../docs/content/imgs/overview/ai-agents-memory-lifecycle.png)
 
-Memory Engineering broadly consists of following principles - Data Engineering, Agent Engineering, ML Engineering & Information Retrieval
+**Memory Engineering** broadly consists of following principles - Data Engineering, Agent Engineering, ML Engineering & Information Retrieval
+
 ![Memory Engineering](../docs/content/imgs/overview/ai-agents-memory-engineering.png)
-
-
 
 ## Agent
 - An AI agent is a computational entity that has the following capabilities
