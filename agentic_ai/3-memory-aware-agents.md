@@ -1,10 +1,9 @@
 # Building Memory Aware Agents
 
-**AI Agents memory lifecycle**
-
 ![Ai Agents Memory Lifecycle](../docs/content/imgs/overview/ai-agents-memory-lifecycle.png)
 
-**Memory Engineering** broadly consists of following principles - Data Engineering, Agent Engineering, ML Engineering & Information Retrieval
+**Memory Engineering** 
+Broadly consists of following principles - Data Engineering, Agent Engineering, ML Engineering & Information Retrieval
 
 ![Memory Engineering](../docs/content/imgs/overview/ai-agents-memory-engineering.png)
 
@@ -154,8 +153,19 @@ Following memory operations need to be done to solve this problem - **Extraction
 
 
 ## Useful Patterns
-- Context Engineering, Maximising value of each token passed to LLM context, we want to have high signal/noise ratio for single token passed into LLM via various data sources.
-
-![Context Engineering](../docs/content/imgs/journey/ai-agent-context-engineering.png)
+- **Context Engineering**
+  - Maximising value of each token passed to LLM context, we want to have high signal/noise ratio for single token passed into LLM via various data sources.
+  ![Context Engineering](../docs/content/imgs/journey/ai-agent-context-engineering.png)
+- **Context Window Reduction**
+  - It's a process of shrinking the amount of information placed in LLM context window by **summarizing, compressing, deduplicating, filtering content** while preserving the signals needed for current task. 
+  - **Context Summarization**, we pass the entire context via an LLM and reduce the footprint. 3 key things to keep in mind:
+    - Retain the highest signal, task relevant facts. 
+    - Preserve meaning and key relationships.
+    - Remove redundancy, low value details and noise.
+  - **Context Compaction**, we move the entire context into external database and let LLM decide when to access it. 
+- **Workflow memory**
+  - Preserves the Multi step workflow process already performed by an LLM in external memory to be reused reliably over time
+  - 
+  
 
 
