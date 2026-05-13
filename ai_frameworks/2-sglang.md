@@ -6,7 +6,7 @@
 
 ![img.png](../docs/content/imgs/architecture/ai-frameworks-sglang-arch.png)
 
-- **The latency vs throughput tradeoff?**During inference time with LLMs, how do we serve AI models faster, cheaper and at scale?
+- **The latency vs throughput tradeoff?** During inference time with LLMs, how do we serve AI models faster, cheaper and at scale?
     - <ins>**KV Cache** and **Continuous Batching**</ins> gets us better latency along with better throughput.
 - What does **Autoregressive nature of LLM Inference** mean?
   - The generation of tokens by LLM based on previous tokens (probability distribution) is **sequential, one-at-a time process** i.e. we can't skip to 10th token in the sentence "The Sky is ......" without sequentially generating the 9 tokens before it. 
